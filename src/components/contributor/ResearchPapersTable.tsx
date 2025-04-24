@@ -1,10 +1,8 @@
-import { Paper, Typography, CircularProgress, Box } from '@mui/material';
+import { Box, Spinner, Text, Table } from '@chakra-ui/react';
 import { useEffect, useCallback, useMemo } from 'react';
-import { useReactTable, getCoreRowModel, ColumnDef, flexRender } from '@tanstack/react-table';
+import { useReactTable, getCoreRowModel, ColumnDef, flexRender, getSortedRowModel } from '@tanstack/react-table';
 import { useInView } from 'react-intersection-observer'
-import {
-  useInfiniteQuery,
-} from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import type { ResearchPaper } from '../../types';
 
 const PAGE_SIZE = 10;
@@ -16,21 +14,14 @@ interface ResearchPapersTableProps {
 const ResearchPapersTable: React.FC<ResearchPapersTableProps> = ({ contributorApiId }) => {
   const { ref, inView } = useInView();
 
-  const fetchNext = useCallback(async ({
-    pageParam,
-  }: {
-    pageParam: number
-  }): Promise<{
-    data: Array<ResearchPaper>
-    previousId: number
-    nextId: number
-  }> => {
-    const response = await fetch(`https://api.semanticscholar.org/graph/v1/author/${contributorApiId}/papers?fields=url,title,publicationDate&offset=${pageParam}&limit=${PAGE_SIZE}`)
-    const result = await response.json()
+  const fetchNext = useCallback(async ({ pageParam }: { pageParam: number }) => {
+    const response = await fetch(`https://api.semanticscholar.org/graph/v1/author/${contributorApiId}/papers?fields=url,title,publicationDate,paperId&offset=${pageParam}&limit=${PAGE_SIZE}`)
+    const result = await response.json();
     const papers = (result.data || []).map((p: any) => ({
       title: p.title,
       url: p.url,
-      publishDate: p.publicationDate || '',
+      publishDate: p.publicationDate ? new Date(p.publicationDate) : null,
+      id: p.paperId
     }));
     return {
       data: papers,
@@ -73,68 +64,59 @@ const ResearchPapersTable: React.FC<ResearchPapersTableProps> = ({ contributorAp
     {
       accessorKey: 'publishDate',
       header: 'Publish Date',
-      cell: info => info.getValue() ? new Date(info.getValue() as string).toLocaleDateString() : '-',
+      cell: info => info.getValue() ? (info.getValue() as Date).toLocaleDateString() : '-',
+      sortingFn: 'datetime',
     },
   ];
 
-
   const preparedData = useMemo(
-    () => data?.pages.map(page => page.data).flat().sort((a, b) => b.publishDate.localeCompare(a.publishDate)) || [], 
+    () => data?.pages.map(page => page.data).flat() || [], 
     [data?.pages.length ?? 0]);
   const table = useReactTable({
     data: preparedData,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    enableSorting: true,
+    getRowId: originalRow => originalRow.id,
+    state: {
+      sorting: [{ id: 'publishDate', desc: true }],
+    },
   });
 
-  if (error) return <Typography color="error">{typeof error === 'string' ? error : 'An error occurred.'}</Typography>;
-  if (!preparedData.length && isFetching) return <CircularProgress sx={{ my: 2 }} />;
-  if (!preparedData.length) return <Typography>No research papers available yet.</Typography>;
+  if (error) return <Text color="red.500">{typeof error === 'string' ? error : 'An error occurred.'}</Text>;
+  if (!preparedData.length && isFetching) return <Spinner my={2} />;
+  if (!preparedData.length) return <Text>No research papers available yet.</Text>;
 
   return (
-    <Paper sx={{ width: '100%', minWidth: 400, height: 400, overflow: 'auto', mt: 1 }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
-        <colgroup>
-          <col style={{ width: '70%' }} />
-          <col style={{ width: '30%' }} />
-        </colgroup>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <th key={header.id} style={{ textAlign: 'left', padding: 8, background: '#f5f5f5', borderBottom: '1px solid #ddd', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+    <Box width="100%" minWidth="400px" maxH="400px" overflowY="auto" mt={1}>
+      <Table.Root variant="line" size="sm">
+        <Table.Header>
+          <Table.Row>
+            {table.getHeaderGroups().map(headerGroup =>
+              headerGroup.headers.map(header => (
+                <Table.ColumnHeader key={header.id} width={header.column.id === 'title' ? '70%' : '30%'}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
-                </th>
+                </Table.ColumnHeader>
+              ))
+            )}
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {table.getRowModel().rows.map(row => (
+            <Table.Row key={row.id}>
+              {row.getVisibleCells().map(cell => (
+                <Table.Cell key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </Table.Cell>
               ))}
-            </tr>
+            </Table.Row>
           ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => {
-            return <tr key={row.id}>
-            {row.getVisibleCells().map(cell => {
-              return (
-                <td key={cell.id}>
-                  {flexRender(
-                    cell.column.columnDef.cell,
-                    cell.getContext()
-                  )}
-                </td>
-              )
-            })}
-          </tr>
-          })}
-        </tbody>
-      </table>
-      <div>
-        {hasNextPage && <div
-          ref={ref}
-        >
-          Loading...
-        </div>}
-      </div>
-      {isFetching && !isFetchingNextPage && <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}><CircularProgress size={24} /></Box>}
-    </Paper>
+        </Table.Body>
+      </Table.Root>
+      {hasNextPage && <Box ref={ref} textAlign="center" py={2}>Loading...</Box>}
+      {isFetching && !isFetchingNextPage && <Spinner my={2} />}
+    </Box>
   );
 };
 

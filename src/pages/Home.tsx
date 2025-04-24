@@ -1,50 +1,30 @@
-import { Container, Typography, Grid, Card, CardContent, CardMedia } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Container, Heading, Grid, Text, Image, Card, CardBody } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
 import ProjectCarousel from '../components/ProjectCarousel';
 import { projects, contributors } from '../data/sampleData';
 
 const Home = () => {
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" gutterBottom align="center">
+    <Container maxW="6xl" mx="auto" py={4}>
+      <Heading as="h1" size="xl" mb={4} textAlign="center">
         Science Projects Showcase
-      </Typography>
+      </Heading>
       
       <ProjectCarousel projects={projects} />
 
-      <Typography variant="h4" component="h2" gutterBottom sx={{ mt: 6, mb: 3 }}>
+      <Heading as="h2" size="lg" mt={12} mb={6}>
         Our Contributors
-      </Typography>
+      </Heading>
       
-      <Grid container spacing={3}>
+      <Grid templateColumns={{ base: '1fr', sm: '1fr 1fr', md: 'repeat(3, 1fr)' }} gap={6}>
         {contributors.map((contributor) => (
-          <Grid item xs={12} sm={6} md={4} key={contributor.id}>
-            <Card
-              component={Link}
-              to={`/contributor/${contributor.id}/bio`}
-              sx={{ 
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                textDecoration: 'none'
-              }}
-            >
-              <CardMedia
-                component="img"
-                height="200"
-                image={contributor.imageUrl}
-                alt={contributor.name}
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h6" component="h3">
-                  {contributor.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {contributor.role}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          <Card.Root as={RouterLink} to={`/contributor/${contributor.id}/bio`} key={contributor.id} _hover={{ textDecoration: 'none', boxShadow: 'md' }}>
+            <Image src={contributor.imageUrl} alt={contributor.name} height="200px" objectFit="cover" borderTopRadius="md" />
+            <Card.Body>
+              <Card.Title>{contributor.name}</Card.Title>
+              <Card.Description>{contributor.role}</Card.Description>
+            </Card.Body>
+          </Card.Root>
         ))}
       </Grid>
     </Container>

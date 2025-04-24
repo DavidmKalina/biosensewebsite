@@ -1,47 +1,31 @@
-import { Box, Typography, Grid, Card, CardMedia } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { SimpleGrid, Card, CardBody, Image, Heading, Text, Box } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
 import type { Project } from '../../types';
 
 interface ContributorProjectsProps {
   projects: Project[];
 }
 
-const ContributorProjects: React.FC<ContributorProjectsProps> = ({ projects }) => (
-  <Box sx={{ mt: 6 }}>
-    <Typography variant="h4" gutterBottom>
-      Projects Involved
-    </Typography>
-    <Grid container spacing={3}>
-      {projects.map((project) => (
-        <Grid item xs={12} md={6} key={project.id}>
-          <Card
-            component={Link}
-            to={`/project/${project.id}`}
-            sx={{
-              display: 'flex',
-              height: '100%',
-              textDecoration: 'none',
-            }}
-          >
-            <CardMedia
-              component="img"
-              sx={{ width: 200 }}
-              image={project.imageUrl}
-              alt={project.title}
-            />
-            <Box sx={{ p: 2 }}>
-              <Typography variant="h6" component="div" gutterBottom>
-                {project.title}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {project.shortDescription}
-              </Typography>
-            </Box>
-          </Card>
-        </Grid>
-      ))}
-    </Grid>
-  </Box>
-);
+const ContributorProjects: React.FC<ContributorProjectsProps> = ({ projects }) => {
+  if (!projects.length) {
+    return <Text>No projects found for this contributor.</Text>;
+  }
+  return (
+    <Box mt={6}>
+      <Heading as="h4" size="md" mb={4}>Projects Involved</Heading>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
+        {projects.map((project) => (
+          <Card.Root as={RouterLink} to={`/project/${project.id}`} key={project.id}>
+            <Image src={project.imageUrl} alt={project.title} height="150px" objectFit="cover" borderTopRadius="md" />
+            <Card.Body>
+              <Card.Title>{project.title}</Card.Title>
+              <Card.Description>{project.shortDescription}</Card.Description>
+            </Card.Body>
+          </Card.Root>
+        ))}
+      </SimpleGrid>
+    </Box>
+  );
+};
 
 export default ContributorProjects;

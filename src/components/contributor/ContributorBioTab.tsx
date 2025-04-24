@@ -1,4 +1,4 @@
-import { Typography, Box, CircularProgress } from '@mui/material';
+import { Box, Text, Spinner } from '@chakra-ui/react';
 import type { Contributor } from '../../types';
 import { useQuery } from '@tanstack/react-query';
 
@@ -6,17 +6,16 @@ interface ContributorBioTabProps {
   contributor: Contributor;
 }
 
-
-const fetchBio = async ({ queryKey: [_, contributorApiId] }: { queryKey: [unknown, string | undefined] }) => {
+const fetchBio = async ({ queryKey }: { queryKey: [string, string | undefined] }) => {
+    const [, contributorApiId] = queryKey;
     if (!contributorApiId) return {};
     const res = await fetch(`https://api.semanticscholar.org/graph/v1/author/${contributorApiId}?fields=url,citationCount,paperCount`)
-   const data = await res.json()
+    const data = await res.json()
     return {
       url: data.url,
       citationCount: data.citationCount,
       paperCount: data.paperCount,
     }
-
 }
 
 const ContributorBioTab: React.FC<ContributorBioTabProps> = ({ contributor }) => {
@@ -31,17 +30,15 @@ const ContributorBioTab: React.FC<ContributorBioTabProps> = ({ contributor }) =>
 
   return (
     <Box>
-      <Typography variant="body1" paragraph>
-        {contributor.bio}
-      </Typography>
+      <Text mb={4}>{contributor.bio}</Text>
       {contributor.contributorApiId && (
-        <Box sx={{ mt: 2 }}>
-          {loading && <CircularProgress size={20} sx={{ ml: 1 }} />}
-          {error && <Typography color="error">{`${error}`}</Typography>}
+        <Box mt={4}>
+          {loading && <Spinner size="sm" ml={2} />}
+          {error && <Text color="red.500">{`${error}`}</Text>}
           {scholarBio && (
             <Box>
-              <Typography>Citation Count: {scholarBio.citationCount ?? '-'}</Typography>
-              <Typography>Paper Count: {scholarBio.paperCount ?? '-'}</Typography>
+              <Text>Citation Count: {scholarBio.citationCount ?? '-'}</Text>
+              <Text>Paper Count: {scholarBio.paperCount ?? '-'}</Text>
             </Box>
           )}
         </Box>

@@ -1,81 +1,41 @@
 import { useParams, Link } from 'react-router-dom';
-import { Container, Typography, Card, CardMedia, Grid, Box, Chip } from '@mui/material';
+import { Container, Heading, Box, Image, Text, SimpleGrid, Card, CardBody, Badge, Flex } from '@chakra-ui/react';
 import { projects, contributors } from '../data/sampleData';
 
 const ProjectPage = () => {
   const { id } = useParams<{ id: string }>();
   const project = projects.find(p => p.id === id);
-  
+
   if (!project) {
     return (
-      <Container>
-        <Typography>Project not found</Typography>
+      <Container maxW="6xl" mx="auto" py={8}>
+        <Text>Project not found</Text>
       </Container>
     );
   }
 
-  const projectContributors = contributors.filter(c => 
-    project.contributors.includes(c.id)
-  );
+  const projectContributors = contributors.filter(c => project.contributors.includes(c.id));
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" gutterBottom>
-        {project.title}
-      </Typography>
-
-      <Card sx={{ mb: 4 }}>
-        <CardMedia
-          component="img"
-          height="400"
-          image={project.imageUrl}
-          alt={project.title}
-          sx={{ objectFit: 'cover' }}
-        />
-      </Card>
-
-      <Typography variant="body1" paragraph>
-        {project.fullDescription}
-      </Typography>
-
-      <Box sx={{ mt: 4 }}>
-        <Typography variant="h5" gutterBottom>
-          Contributors
-        </Typography>
-        <Grid container spacing={3}>
+    <Container maxW="6xl" mx="auto" py={8}>
+      <Heading as="h1" size="xl" mb={6}>{project.title}</Heading>
+      <Card.Root mb={8} overflow="hidden">
+        <Image src={project.imageUrl} alt={project.title} h={{ base: '200px', md: '400px' }} w="100%" objectFit="cover" />
+      </Card.Root>
+      <Text fontSize="lg" mb={8}>{project.fullDescription}</Text>
+      <Box mt={8}>
+        <Heading as="h2" size="md" mb={4}>Contributors</Heading>
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={6}>
           {projectContributors.map((contributor) => (
-            <Grid item xs={12} sm={6} md={4} key={contributor.id}>
-              <Card
-                component={Link}
-                to={`/contributor/${contributor.id}`}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  textDecoration: 'none',
-                  p: 2,
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  sx={{
-                    width: 80,
-                    height: 80,
-                    borderRadius: '50%',
-                    mr: 2,
-                  }}
-                  image={contributor.imageUrl}
-                  alt={contributor.name}
-                />
-                <Box>
-                  <Typography variant="h6" component="div">
-                    {contributor.name}
-                  </Typography>
-                  <Chip label={contributor.role} size="small" />
-                </Box>
-              </Card>
-            </Grid>
+            <Card.Root as={Link} to={`/contributor/${contributor.id}`} key={contributor.id} _hover={{ boxShadow: 'lg', textDecoration: 'none' }} display="flex" alignItems="center" p={4}>
+              <Image src={contributor.imageUrl} alt={contributor.name} boxSize="80px" borderRadius="full" mr={4} />
+              <Card.Body p={0}>
+                <Heading as="h3" size="sm">{contributor.name}</Heading>
+                <Badge colorScheme="blue" mt={2}>{contributor.role}</Badge>
+              </Card.Body>
+            </Card.Root>
           ))}
-        </Grid>
+        </SimpleGrid>
       </Box>
     </Container>
   );

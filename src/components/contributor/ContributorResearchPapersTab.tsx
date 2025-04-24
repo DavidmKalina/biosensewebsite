@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from '@mui/material';
+import { Box, Spinner } from '@chakra-ui/react';
 import type { ResearchPaper } from '../../types';
 import { lazy, Suspense } from 'react';
 
@@ -11,7 +11,7 @@ interface ContributorResearchPapersTabProps {
 
 const ContributorResearchPapersTab: React.FC<ContributorResearchPapersTabProps> = ({ contributorApiId }) => (
   <Box>
-    <Suspense fallback={<CircularProgress size={24} />}>
+    <Suspense fallback={<Spinner size="lg" />}> 
       <ResearchPapersTable contributorApiId={contributorApiId} />
     </Suspense>
   </Box>

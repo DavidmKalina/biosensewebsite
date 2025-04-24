@@ -1,24 +1,17 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Typography, Card, CardMedia, Grid, Tabs, Tab } from '@mui/material';
+import { Container, Heading, Card, Image, Tabs, Box, Text } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { contributors, projects } from '../data/sampleData';
 import ContributorBioTab from '../components/contributor/ContributorBioTab';
 import ContributorResearchPapersTab from '../components/contributor/ContributorResearchPapersTab';
 import ContributorProjects from '../components/contributor/ContributorProjects';
 
-const CONTRIBUTOR_TABS = [
-  { label: 'Bio', value: 'bio' },
-  { label: 'Research Papers', value: 'papers' },
-];
-
 const ContributorPage = () => {
   const { id, tab } = useParams<{ id: string; tab?: string }>();
-  const contributor = contributors.find(c => c.id === id);
   const navigate = useNavigate();
-  const currentTab = tab || 'bio';
+  const contributor = contributors.find(c => c.id === id);
 
   useEffect(() => {
-    // Redirect to /bio if no tab is specified
     if (!tab && contributor) {
       navigate(`/contributor/${contributor.id}/bio`, { replace: true });
     }
@@ -26,55 +19,42 @@ const ContributorPage = () => {
 
   if (!contributor) {
     return (
-      <Container>
-        <Typography>Contributor not found</Typography>
+      <Container maxW="lg" py={10}>
+        <Heading size="md">Contributor not found</Heading>
       </Container>
     );
   }
 
-  const contributorProjects = projects.filter(project => 
+  const contributorProjects = projects.filter(project =>
     project.contributors.includes(contributor.id)
   );
 
+  const currentTab = tab || 'bio';
+
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={4}>
-          <Card>
-            <CardMedia
-              component="img"
-              height="400"
-              image={contributor.imageUrl}
-              alt={contributor.name}
-              sx={{ objectFit: 'cover' }}
-            />
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <Typography variant="h3" component="h1" gutterBottom>
-            {contributor.name}
-          </Typography>
-          <Typography variant="h5" color="primary" gutterBottom>
-            {contributor.role}
-          </Typography>
-          <Tabs
-            value={CONTRIBUTOR_TABS.findIndex(t => t.value === currentTab)}
-            onChange={(_, idx) => navigate(`/contributor/${contributor.id}/${CONTRIBUTOR_TABS[idx].value}`)}
-            sx={{ mb: 2 }}
-          >
-            {CONTRIBUTOR_TABS.map(tab => (
-              <Tab key={tab.value} label={tab.label} />
-            ))}
-          </Tabs>
-          {currentTab === 'bio' && <ContributorBioTab contributor={contributor} />}
-          {currentTab === 'papers' && (
-            <ContributorResearchPapersTab
-              contributorApiId={contributor.contributorApiId}
-            />
-          )}
-        </Grid>
-      </Grid>
-      <ContributorProjects projects={contributorProjects} />
+    <Container maxW="6xl" mx="auto" py={6}>
+      <Card.Root mb={6} p={6} display="flex" flexDirection={{ base: 'column', md: 'row' }} alignItems="center">
+        <Image src={contributor.imageUrl} alt={contributor.name} boxSize="120px" borderRadius="full" mr={{ md: 8 }} mb={{ base: 4, md: 0 }} />
+        <Card.Body>
+          <Card.Title>{contributor.name}</Card.Title>
+          <Card.Description>{contributor.role}</Card.Description>
+        </Card.Body>
+      </Card.Root>
+      <Tabs.Root value={currentTab} onValueChange={({value}) => {navigate(`/contributor/${contributor.id}/${value}`)}} colorScheme="blue" variant="enclosed">
+        <Tabs.List mb={4}>
+          <Tabs.Trigger key={'Bio'} value={'Bio'}>Bio</Tabs.Trigger>
+          <Tabs.Trigger key={'papers'} value={'papers'}>Research Papers</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content px={0} value={'bio'}>
+          <ContributorBioTab contributor={contributor} />
+        </Tabs.Content>
+        <Tabs.Content px={0} value={'papers'}>
+          <ContributorResearchPapersTab contributorApiId={contributor.contributorApiId} />
+        </Tabs.Content>
+      </Tabs.Root>
+      <Box mt={8}>
+        <ContributorProjects projects={contributorProjects} />
+      </Box>
     </Container>
   );
 };

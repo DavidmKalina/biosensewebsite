@@ -1,26 +1,25 @@
-import { AppBar, Toolbar, Typography, Container } from '@mui/material';
+import { Box, Flex, Heading, Container } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <AppBar position="static">
-      <Container maxWidth="lg">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            component={Link}
+    <Box as="nav" bg="blue.600" py={3} boxShadow="sm">
+      <Container maxW="6xl">
+        <Flex align="center" justify="flex-start">
+          <Heading
+            as={Link}
             to="/"
-            sx={{
-              textDecoration: 'none',
-              color: 'white',
-              flexGrow: 1,
-            }}
+            size="md"
+            color="white"
+            textDecoration="none"
+            flexGrow={1}
+            _hover={{ color: 'blue.100' }}
           >
             BioSense Projects
-          </Typography>
-        </Toolbar>
+          </Heading>
+        </Flex>
       </Container>
-    </AppBar>
+    </Box>
   );
 };
 
