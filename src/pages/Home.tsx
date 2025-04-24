@@ -21,7 +21,7 @@ const Home = () => {
           <Grid item xs={12} sm={6} md={4} key={contributor.id}>
             <Card
               component={Link}
-              to={`/contributor/${contributor.id}`}
+              to={`/contributor/${contributor.id}/bio`}
               sx={{ 
                 height: '100%',
                 display: 'flex',

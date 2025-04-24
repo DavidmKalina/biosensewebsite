@@ -1,6 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import ProjectPage from './pages/ProjectPage';
@@ -17,18 +21,24 @@ const theme = createTheme({
   },
 });
 
+const queryClient = new QueryClient()
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/project/:id" element={<ProjectPage />} />
-          <Route path="/contributor/:id" element={<ContributorPage />} />
-        </Routes>
-      </Router>
+      <QueryClientProvider client={queryClient}>
+        <CssBaseline />
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/project/:id" element={<ProjectPage />} />
+            {/* ContributorPage handles both /contributor/:id and /contributor/:id/:tab */}
+            <Route path="/contributor/:id" element={<Navigate relative="route" to="bio" replace />} />
+            <Route path="/contributor/:id/:tab" element={<ContributorPage />} />
+          </Routes>
+        </Router>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }

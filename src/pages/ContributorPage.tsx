@@ -1,11 +1,29 @@
-import { useParams, Link } from 'react-router-dom';
-import { Container, Typography, Card, CardMedia, Grid, Box } from '@mui/material';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { Container, Typography, Card, CardMedia, Grid, Tabs, Tab } from '@mui/material';
+import { useEffect } from 'react';
 import { contributors, projects } from '../data/sampleData';
+import ContributorBioTab from '../components/contributor/ContributorBioTab';
+import ContributorResearchPapersTab from '../components/contributor/ContributorResearchPapersTab';
+import ContributorProjects from '../components/contributor/ContributorProjects';
+
+const CONTRIBUTOR_TABS = [
+  { label: 'Bio', value: 'bio' },
+  { label: 'Research Papers', value: 'papers' },
+];
 
 const ContributorPage = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id, tab } = useParams<{ id: string; tab?: string }>();
   const contributor = contributors.find(c => c.id === id);
-  
+  const navigate = useNavigate();
+  const currentTab = tab || 'bio';
+
+  useEffect(() => {
+    // Redirect to /bio if no tab is specified
+    if (!tab && contributor) {
+      navigate(`/contributor/${contributor.id}/bio`, { replace: true });
+    }
+  }, [tab, contributor, navigate]);
+
   if (!contributor) {
     return (
       <Container>
@@ -32,7 +50,6 @@ const ContributorPage = () => {
             />
           </Card>
         </Grid>
-        
         <Grid item xs={12} md={8}>
           <Typography variant="h3" component="h1" gutterBottom>
             {contributor.name}
@@ -40,47 +57,25 @@ const ContributorPage = () => {
           <Typography variant="h5" color="primary" gutterBottom>
             {contributor.role}
           </Typography>
-          <Typography variant="body1" paragraph>
-            {contributor.bio}
-          </Typography>
+          <Tabs
+            value={CONTRIBUTOR_TABS.findIndex(t => t.value === currentTab)}
+            onChange={(_, idx) => navigate(`/contributor/${contributor.id}/${CONTRIBUTOR_TABS[idx].value}`)}
+            sx={{ mb: 2 }}
+          >
+            {CONTRIBUTOR_TABS.map(tab => (
+              <Tab key={tab.value} label={tab.label} />
+            ))}
+          </Tabs>
+          {currentTab === 'bio' && <ContributorBioTab contributor={contributor} />}
+          {currentTab === 'papers' && (
+            <ContributorResearchPapersTab
+              contributorApiId={contributor.contributorApiId}
+              researchPapers={contributor.researchPapers}
+            />
+          )}
         </Grid>
       </Grid>
-
-      <Box sx={{ mt: 6 }}>
-        <Typography variant="h4" gutterBottom>
-          Projects Involved
-        </Typography>
-        <Grid container spacing={3}>
-          {contributorProjects.map((project) => (
-            <Grid item xs={12} md={6} key={project.id}>
-              <Card
-                component={Link}
-                to={`/project/${project.id}`}
-                sx={{
-                  display: 'flex',
-                  height: '100%',
-                  textDecoration: 'none',
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  sx={{ width: 200 }}
-                  image={project.imageUrl}
-                  alt={project.title}
-                />
-                <Box sx={{ p: 2 }}>
-                  <Typography variant="h6" component="div" gutterBottom>
-                    {project.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {project.shortDescription}
-                  </Typography>
-                </Box>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+      <ContributorProjects projects={contributorProjects} />
     </Container>
   );
 };
