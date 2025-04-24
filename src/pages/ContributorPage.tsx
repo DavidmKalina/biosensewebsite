@@ -1,4 +1,4 @@
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Container, Typography, Card, CardMedia, Grid, Tabs, Tab } from '@mui/material';
 import { useEffect } from 'react';
 import { contributors, projects } from '../data/sampleData';
@@ -70,7 +70,6 @@ const ContributorPage = () => {
           {currentTab === 'papers' && (
             <ContributorResearchPapersTab
               contributorApiId={contributor.contributorApiId}
-              researchPapers={contributor.researchPapers}
             />
           )}
         </Grid>

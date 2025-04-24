@@ -7,9 +7,9 @@ interface ContributorResearchPapersTabProps {
   researchPapers?: ResearchPaper[];
 }
 
-const ContributorResearchPapersTab: React.FC<ContributorResearchPapersTabProps> = ({ contributorApiId, researchPapers }) => (
+const ContributorResearchPapersTab: React.FC<ContributorResearchPapersTabProps> = ({ contributorApiId }) => (
   <Box>
-    <ResearchPapersTable contributorApiId={contributorApiId} localPapers={researchPapers} />
+    <ResearchPapersTable contributorApiId={contributorApiId} />
   </Box>
 );
 

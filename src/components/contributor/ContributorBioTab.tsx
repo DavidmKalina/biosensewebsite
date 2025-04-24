@@ -1,17 +1,11 @@
-import { Typography, Box, Link as MuiLink, CircularProgress } from '@mui/material';
+import { Typography, Box, CircularProgress } from '@mui/material';
 import type { Contributor } from '../../types';
-import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 interface ContributorBioTabProps {
   contributor: Contributor;
 }
 
-interface SemanticScholarBio {
-  url?: string;
-  citationCount?: number;
-  paperCount?: number;
-}
 
 const fetchBio = async ({ queryKey: [_, contributorApiId] }: { queryKey: [unknown, string | undefined] }) => {
     if (!contributorApiId) return {};
@@ -43,7 +37,7 @@ const ContributorBioTab: React.FC<ContributorBioTabProps> = ({ contributor }) =>
       {contributor.contributorApiId && (
         <Box sx={{ mt: 2 }}>
           {loading && <CircularProgress size={20} sx={{ ml: 1 }} />}
-          {error && <Typography color="error">{error}</Typography>}
+          {error && <Typography color="error">{`${error}`}</Typography>}
           {scholarBio && (
             <Box>
               <Typography>Citation Count: {scholarBio.citationCount ?? '-'}</Typography>

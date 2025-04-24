@@ -1,7 +1,6 @@
 import { Paper, Typography, CircularProgress, Box } from '@mui/material';
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import { useEffect, useCallback, useMemo } from 'react';
 import { useReactTable, getCoreRowModel, ColumnDef, flexRender } from '@tanstack/react-table';
-import { useVirtualizer } from '@tanstack/react-virtual';
 import { useInView } from 'react-intersection-observer'
 import {
   useInfiniteQuery,
@@ -12,10 +11,9 @@ const PAGE_SIZE = 10;
 
 interface ResearchPapersTableProps {
   contributorApiId?: string;
-  localPapers?: ResearchPaper[];
 }
 
-const ResearchPapersTable: React.FC<ResearchPapersTableProps> = ({ contributorApiId, localPapers }) => {
+const ResearchPapersTable: React.FC<ResearchPapersTableProps> = ({ contributorApiId }) => {
   const { ref, inView } = useInView();
 
   const fetchNext = useCallback(async ({
@@ -42,16 +40,12 @@ const ResearchPapersTable: React.FC<ResearchPapersTableProps> = ({ contributorAp
   }, [contributorApiId])
 
   const {
-    status,
     data,
     error,
     isFetching,
     isFetchingNextPage,
-    isFetchingPreviousPage,
     fetchNextPage,
-    fetchPreviousPage,
     hasNextPage,
-    hasPreviousPage,
   } = useInfiniteQuery({
     queryKey: ['papers', contributorApiId],
     queryFn: fetchNext,
