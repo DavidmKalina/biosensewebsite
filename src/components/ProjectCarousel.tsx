@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Slider from 'react-slick';
 import { Card, CardContent, CardMedia, Typography, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
