@@ -1,6 +1,6 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Heading, Card, Image, Tabs, Box } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { useParams, useNavigate, NavLink } from 'react-router-dom';
+import { Container, Heading, Card, Image, Box, Button, ButtonGroup } from '@chakra-ui/react';
+import { useEffect, useMemo } from 'react';
 import { contributors, projects } from '../data/sampleData';
 import ContributorBioTab from '../components/contributor/ContributorBioTab';
 import ContributorResearchPapersTab from '../components/contributor/ContributorResearchPapersTab';
@@ -15,7 +15,11 @@ const ContributorPage = () => {
     if (!tab && contributor) {
       navigate(`/contributor/${contributor.id}/bio`, { replace: true });
     }
-  }, [tab, contributor, navigate]);
+  }, [tab, contributor?.id, navigate]);
+
+  const contributorProjects = useMemo(() => projects.filter(project =>
+    contributor?.id && project.contributors.includes(contributor.id)
+  ), [projects.length, contributor?.id]);
 
   if (!contributor) {
     return (
@@ -24,12 +28,6 @@ const ContributorPage = () => {
       </Container>
     );
   }
-
-  const contributorProjects = projects.filter(project =>
-    project.contributors.includes(contributor.id)
-  );
-
-  const currentTab = tab || 'bio';
 
   return (
     <Container maxW="6xl" mx="auto" py={6}>
@@ -40,18 +38,29 @@ const ContributorPage = () => {
           <Card.Description>{contributor.role}</Card.Description>
         </Card.Body>
       </Card.Root>
-      <Tabs.Root value={currentTab} onValueChange={({value}) => {navigate(`/contributor/${contributor.id}/${value}`)}} colorScheme="blue" variant="enclosed">
-        <Tabs.List mb={4}>
-          <Tabs.Trigger key={'Bio'} value={'Bio'}>Bio</Tabs.Trigger>
-          <Tabs.Trigger key={'papers'} value={'papers'}>Research Papers</Tabs.Trigger>
-        </Tabs.List>
-        <Tabs.Content px={0} value={'bio'}>
-          <ContributorBioTab contributor={contributor} />
-        </Tabs.Content>
-        <Tabs.Content px={0} value={'papers'}>
-          <ContributorResearchPapersTab contributorApiId={contributor.contributorApiId} />
-        </Tabs.Content>
-      </Tabs.Root>
+      <ButtonGroup size="sm" variant="outline" attached>
+        <Button asChild variant="outline"><NavLink
+          to={`/contributor/${id}/bio`}
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "active" : ""
+          }
+        >
+          Bio
+        </NavLink></Button>
+        <Button asChild variant="outline">
+        <NavLink
+          to={`/contributor/${id}/papers`}
+          className={({ isActive, isPending }) =>
+            isPending ? "pending" : isActive ? "active" : ""
+          }
+        >
+          Research Papers
+        </NavLink></Button>
+      </ButtonGroup>
+
+      {tab === "bio" && <ContributorBioTab contributor={contributor} />}
+      {tab === "papers" && <ContributorResearchPapersTab contributorApiId={contributor.contributorApiId} />}
+
       <Box mt={8}>
         <ContributorProjects projects={contributorProjects} />
       </Box>
