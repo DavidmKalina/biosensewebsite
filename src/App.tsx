@@ -1,36 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Box, ChakraProvider, createSystem, defaultConfig } from '@chakra-ui/react';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import ProjectPage from './pages/ProjectPage';
+import ContributorPage from './pages/ContributorPage';
+
+export const system = createSystem(defaultConfig, {
+  theme: {
+    tokens: {
+      colors: {
+        primary: {
+          500: {value: '#2196f3'},
+        },
+        secondary: {
+          500: {value: '#f50057'},
+        },
+      },
+    },
+  },
+})
+
+const queryClient = new QueryClient()
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        Hello World
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <ChakraProvider value={system}>
+      <QueryClientProvider client={queryClient}>
+        <Box minW={"100vw"}>
+          <Router>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/project/:id" element={<ProjectPage />} />
+              {/* ContributorPage handles both /contributor/:id and /contributor/:id/:tab */}
+              <Route path="/contributor/:id" element={<Navigate relative="route" to="bio" replace />} />
+              <Route path="/contributor/:id/:tab" element={<ContributorPage />} />
+            </Routes>
+          </Router>
+        </Box>
+      </QueryClientProvider>
+    </ChakraProvider>
+  );
 }
 
-export default App
+export default App;
