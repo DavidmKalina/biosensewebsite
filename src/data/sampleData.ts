@@ -2,27 +2,27 @@ import { Contributor, Project } from '../types';
 
 export const contributors: Contributor[] = [
     {
-        id: 'dr-jane-smith',
-        name: 'Dr. Jane Smith',
-        role: 'Lead Researcher',
-        bio: 'Dr. Jane Smith is a renowned biologist specializing in marine ecosystems. With over 15 years of research experience, she has published numerous papers on coral reef conservation and marine biodiversity.',
+        id: 'sumair-aziz',
+        name: 'Sumair Aziz',
+        role: 'Amazing Researcher',
+        bio: 'This is a quick bio about me. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus vehicula sodales. Nulla aliquam ligula enim, et vehicula sapien tempor eu. Donec euismod tempus diam ut mollis. Nullam sit amet nisi in quam porta rhoncus id vel ante. Aliquam gravida nisi ut risus iaculis egestas. Etiam consequat ut mauris et interdum. Fusce justo massa, dictum vel faucibus vel, finibus eu justo. Mauris vel nunc ac justo laoreet fermentum. Fusce id euismod mi, a sollicitudin felis. Donec sed venenatis libero. Nam imperdiet ac mi non ullamcorper. Etiam eget mauris sed felis dignissim dictum sed eu metus. Donec consequat, sem vitae tempus fringilla, nibh dolor fermentum tellus, id pellentesque augue metus ac risus.',
         imageUrl: '/images/contributors/jane-smith.jpg',
         contributorApiId: '27005482',
     },
     {
-        id: 'prof-alex-chen',
-        name: 'Prof. Alex Chen',
-        role: 'Senior Research Scientist',
-        bio: 'Professor Alex Chen is a quantum physicist with expertise in quantum computing and molecular modeling. His groundbreaking work has contributed to advances in quantum entanglement theory.',
+        id: 'umar-khan',
+        name: 'Umar Khan',
+        role: 'Amazing Researcher',
+        bio: 'This is a quick bio about me. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus vehicula sodales. Nulla aliquam ligula enim, et vehicula sapien tempor eu. Donec euismod tempus diam ut mollis. Nullam sit amet nisi in quam porta rhoncus id vel ante. Aliquam gravida nisi ut risus iaculis egestas. Etiam consequat ut mauris et interdum. Fusce justo massa, dictum vel faucibus vel, finibus eu justo. Mauris vel nunc ac justo laoreet fermentum. Fusce id euismod mi, a sollicitudin felis. Donec sed venenatis libero. Nam imperdiet ac mi non ullamcorper. Etiam eget mauris sed felis dignissim dictum sed eu metus. Donec consequat, sem vitae tempus fringilla, nibh dolor fermentum tellus, id pellentesque augue metus ac risus.',
         imageUrl: '/images/contributors/alex-chen.jpg',
 
         contributorApiId: '120685296',
     },
     {
-        id: 'dr-maria-rodriguez',
-        name: 'Dr. Maria Rodriguez',
-        role: 'Environmental Scientist',
-        bio: 'Dr. Maria Rodriguez specializes in climate change research and sustainable development. Her work focuses on developing innovative solutions for environmental conservation.',
+        id: 'test',
+        name: 'Test Researcher',
+        role: 'Test Scientist',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus vehicula sodales. Nulla aliquam ligula enim, et vehicula sapien tempor eu. Donec euismod tempus diam ut mollis. Nullam sit amet nisi in quam porta rhoncus id vel ante. Aliquam gravida nisi ut risus iaculis egestas. Etiam consequat ut mauris et interdum. Fusce justo massa, dictum vel faucibus vel, finibus eu justo. Mauris vel nunc ac justo laoreet fermentum. Fusce id euismod mi, a sollicitudin felis. Donec sed venenatis libero. Nam imperdiet ac mi non ullamcorper. Etiam eget mauris sed felis dignissim dictum sed eu metus. Donec consequat, sem vitae tempus fringilla, nibh dolor fermentum tellus, id pellentesque augue metus ac risus.',
         imageUrl: '/images/contributors/maria-rodriguez.jpg',
     }
 ];

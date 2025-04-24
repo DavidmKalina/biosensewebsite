@@ -1,6 +1,8 @@
-import { Box } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import type { ResearchPaper } from '../../types';
-import ResearchPapersTable from './ResearchPapersTable';
+import { lazy, Suspense } from 'react';
+
+const ResearchPapersTable = lazy(() => import('./ResearchPapersTable.js'));
 
 interface ContributorResearchPapersTabProps {
   contributorApiId?: string;
@@ -9,7 +11,9 @@ interface ContributorResearchPapersTabProps {
 
 const ContributorResearchPapersTab: React.FC<ContributorResearchPapersTabProps> = ({ contributorApiId }) => (
   <Box>
-    <ResearchPapersTable contributorApiId={contributorApiId} />
+    <Suspense fallback={<CircularProgress size={24} />}>
+      <ResearchPapersTable contributorApiId={contributorApiId} />
+    </Suspense>
   </Box>
 );
 
