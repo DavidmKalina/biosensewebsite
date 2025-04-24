@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Heading, Card, Image, Tabs, Box, Text } from '@chakra-ui/react';
+import { Container, Heading, Card, Image, Tabs, Box } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { contributors, projects } from '../data/sampleData';
 import ContributorBioTab from '../components/contributor/ContributorBioTab';

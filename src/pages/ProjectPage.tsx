@@ -1,6 +1,8 @@
 import { useParams, Link } from 'react-router-dom';
-import { Container, Heading, Box, Image, Text, SimpleGrid, Card, CardBody, Badge, Flex } from '@chakra-ui/react';
+import { Container, Heading, Box, Image, Text, SimpleGrid, Card, Badge } from '@chakra-ui/react';
 import { projects, contributors } from '../data/sampleData';
+
+const CardRoot = Card.Root as React.ComponentType<React.ComponentProps<typeof Card.Root> & React.ComponentProps<typeof Link>>;
 
 const ProjectPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -25,15 +27,15 @@ const ProjectPage = () => {
       <Text fontSize="lg" mb={8}>{project.fullDescription}</Text>
       <Box mt={8}>
         <Heading as="h2" size="md" mb={4}>Contributors</Heading>
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={6}>
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }}>
           {projectContributors.map((contributor) => (
-            <Card.Root as={Link} to={`/contributor/${contributor.id}`} key={contributor.id} _hover={{ boxShadow: 'lg', textDecoration: 'none' }} display="flex" alignItems="center" p={4}>
+            <CardRoot as={Link} to={`/contributor/${contributor.id}`} key={contributor.id} _hover={{ boxShadow: 'lg', textDecoration: 'none' }} display="flex" alignItems="center" p={4}>
               <Image src={contributor.imageUrl} alt={contributor.name} boxSize="80px" borderRadius="full" mr={4} />
               <Card.Body p={0}>
                 <Heading as="h3" size="sm">{contributor.name}</Heading>
                 <Badge colorScheme="blue" mt={2}>{contributor.role}</Badge>
               </Card.Body>
-            </Card.Root>
+            </CardRoot>
           ))}
         </SimpleGrid>
       </Box>

@@ -1,7 +1,9 @@
-import { Container, Heading, Grid, Text, Image, Card, CardBody } from '@chakra-ui/react';
+import { Container, Heading, Grid, Image, Card } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import ProjectCarousel from '../components/ProjectCarousel';
 import { projects, contributors } from '../data/sampleData';
+
+const CardRoot = Card.Root as React.ComponentType<React.ComponentProps<typeof Card.Root> & React.ComponentProps<typeof RouterLink>>;
 
 const Home = () => {
   return (
@@ -18,13 +20,13 @@ const Home = () => {
       
       <Grid templateColumns={{ base: '1fr', sm: '1fr 1fr', md: 'repeat(3, 1fr)' }} gap={6}>
         {contributors.map((contributor) => (
-          <Card.Root as={RouterLink} to={`/contributor/${contributor.id}/bio`} key={contributor.id} _hover={{ textDecoration: 'none', boxShadow: 'md' }}>
+          <CardRoot as={RouterLink} to={`/contributor/${contributor.id}/bio`} key={contributor.id} _hover={{ textDecoration: 'none', boxShadow: 'md' }}>
             <Image src={contributor.imageUrl} alt={contributor.name} height="200px" objectFit="cover" borderTopRadius="md" />
             <Card.Body>
               <Card.Title>{contributor.name}</Card.Title>
               <Card.Description>{contributor.role}</Card.Description>
             </Card.Body>
-          </Card.Root>
+          </CardRoot>
         ))}
       </Grid>
     </Container>
