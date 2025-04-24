@@ -34,7 +34,7 @@ export const projects: Project[] = [
         shortDescription: 'Innovative approaches to restore damaged coral reefs using biotechnology and marine science.',
         fullDescription: 'This project combines cutting-edge biotechnology with marine science to develop new methods for coral reef restoration. Using a novel approach to coral propagation, we\'ve successfully increased coral growth rates by 300% while improving resilience to environmental stressors. The project includes extensive field testing in the Great Barrier Reef, with promising results for large-scale reef restoration efforts.',
         imageUrl: '/images/projects/coral-reef.jpg',
-        contributors: ['dr-jane-smith', 'dr-maria-rodriguez']
+        contributors: ['sumair-aziz', 'umar-khan']
     },
     {
         id: 'quantum-molecular-modeling',
@@ -42,7 +42,7 @@ export const projects: Project[] = [
         shortDescription: 'Using quantum computing to revolutionize molecular modeling for drug discovery.',
         fullDescription: 'This groundbreaking project leverages quantum computing algorithms to simulate complex molecular interactions with unprecedented accuracy. Our team has developed a new quantum-based approach that reduces computational time for drug molecule simulations from months to hours, potentially accelerating the drug discovery process significantly.',
         imageUrl: '/images/projects/quantum-modeling.jpg',
-        contributors: ['prof-alex-chen']
+        contributors: ['umar-khan', 'dr-maria-rodriguez']
     },
     {
         id: 'sustainable-agriculture',
@@ -50,6 +50,6 @@ export const projects: Project[] = [
         shortDescription: 'Developing AI-powered solutions for sustainable farming practices.',
         fullDescription: 'The Smart Sustainable Agriculture project combines IoT sensors, AI algorithms, and environmental science to optimize farming practices. Our system provides real-time recommendations for water usage, pest control, and crop rotation, resulting in a 40% reduction in water consumption and a 25% increase in crop yield while minimizing environmental impact.',
         imageUrl: '/images/projects/smart-agriculture.jpg',
-        contributors: ['dr-maria-rodriguez', 'prof-alex-chen']
+        contributors: ['dr-maria-rodriguez', 'sumair-aziz']
     }
 ];
