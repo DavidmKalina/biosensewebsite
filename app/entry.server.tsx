@@ -18,7 +18,7 @@ function setSecHeaders(responseHeaders: Headers) {
   responseHeaders.set("X-Content-Type-Options", "nosniff");
   responseHeaders.set("Cross-Origin-Resource-Policy", "same-site");
   if(!process.env.CF_PAGES)
-    responseHeaders.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+    responseHeaders.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
 }
 
 export function handleDataRequest(
