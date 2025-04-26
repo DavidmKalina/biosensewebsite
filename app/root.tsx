@@ -8,11 +8,13 @@ import {
   ScrollRestoration,
   useRouteError,
 } from "@remix-run/react";
+import { ManifestLink } from '@remix-pwa/sw';
 
 import "./tailwind.css";
 import Wrapper from "./pages/Wrapper";
 import { NonceContext } from "./misc/nonce-context";
 import { useContext } from "react";
+import { useSWEffect } from '@remix-pwa/sw'
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -35,6 +37,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
+        <ManifestLink />
         <Links />
       </head>
       <body>
@@ -47,6 +50,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  useSWEffect();
   return <Outlet />;
 }
 

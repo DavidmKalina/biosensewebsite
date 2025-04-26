@@ -5,6 +5,8 @@ import {
 } from '@tanstack/react-query'
 import Navbar from '../components/Navbar';
 import { PropsWithChildren } from 'react'
+import { Toaster } from '~/components/ui/toaster';
+
 
 export const system = createSystem(defaultConfig, {
   theme: {
@@ -31,6 +33,7 @@ function App({ children }: PropsWithChildren<{}>) {
               <Navbar />
               {children}
           </Box>
+          <Toaster />
         </QueryClientProvider>
       </ChakraProvider>
   );

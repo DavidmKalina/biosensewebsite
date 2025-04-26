@@ -21,6 +21,9 @@
 		"@emotion/react": "^11.14.0",
 		"@emotion/server": "^11.11.0",
 		"@mcansh/http-helmet": "^0.13.0",
+		"@remix-pwa/client": "^3.0.7",
+		"@remix-pwa/sw": "^3.0.10",
+		"@remix-pwa/worker-runtime": "^2.1.4",
 		"@remix-run/cloudflare": "^2.16.5",
 		"@remix-run/cloudflare-pages": "^2.16.5",
 		"@remix-run/react": "^2.16.5",
@@ -36,6 +39,7 @@
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20250426.0",
+		"@remix-pwa/dev": "^3.1.0",
 		"@remix-run/dev": "^2.16.5",
 		"@types/react": "^18.2.20",
 		"@types/react-dom": "^18.2.7",
