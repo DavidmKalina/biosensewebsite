@@ -111,7 +111,7 @@ const ResearchPapersTable: React.FC<ResearchPapersTableProps> = ({ contributorAp
 
   return (
     <Box width="100%" minWidth="400px" maxH="400px" overflowY="auto" mt={1}>
-      <Table.Root variant="line" size="sm">
+      <Table.Root stickyHeader striped variant="line" size="sm">
         <Table.Header>
           <Table.Row>
             {table.getHeaderGroups().map(headerGroup =>
