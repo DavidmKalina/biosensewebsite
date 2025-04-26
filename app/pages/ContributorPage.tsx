@@ -1,21 +1,12 @@
-import { useParams, useNavigate, NavLink } from 'react-router-dom';
+import { useParams, useNavigate, NavLink, Outlet } from 'react-router-dom';
 import { Container, Heading, Card, Image, Box, Button, ButtonGroup } from '@chakra-ui/react';
 import { useEffect, useMemo } from 'react';
 import { contributors, projects } from '../data/sampleData';
-import ContributorBioTab from '../components/contributor/ContributorBioTab';
-import ContributorResearchPapersTab from '../components/contributor/ContributorResearchPapersTab';
 import ContributorProjects from '../components/contributor/ContributorProjects';
 
 const ContributorPage = () => {
-  const { id, tab } = useParams<{ id: string; tab?: string }>();
-  const navigate = useNavigate();
+  const { id, tab = 'bio' } = useParams<{ id: string; tab?: string }>();
   const contributor = contributors.find(c => c.id === id);
-
-  useEffect(() => {
-    if (!tab && contributor) {
-      navigate(`/contributor/${contributor.id}/bio`, { replace: true });
-    }
-  }, [tab, contributor?.id, navigate]);
 
   const contributorProjects = useMemo(() => projects.filter(project =>
     contributor?.id && project.contributors.includes(contributor.id)
@@ -58,8 +49,7 @@ const ContributorPage = () => {
         </NavLink></Button>
       </ButtonGroup>
 
-      {tab === "bio" && <ContributorBioTab contributor={contributor} />}
-      {tab === "papers" && <ContributorResearchPapersTab contributorApiId={contributor.contributorApiId} />}
+      <Outlet />
 
       <Box mt={8}>
         <ContributorProjects projects={contributorProjects} />

@@ -1,8 +1,10 @@
 import { Box, Heading, Image, useBreakpointValue, Card } from '@chakra-ui/react';
-import Slider from 'react-slick';
+import * as Slider2 from "@ant-design/react-slick";
 import type { Project } from '../types';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+const Slider = Slider2.default.default ??  Slider2.default;
 
 interface ProjectCarouselProps {
   projects: Project[];
@@ -50,7 +52,7 @@ const ProjectCarousel: React.FC<ProjectCarouselProps> = ({ projects }) => {
       <Box maxW={"100vw"} overflow={"hidden"} mx="-6">
         <Slider {...settings}>
           {projects.map((project) => (
-            <CustomSlide {...project} />
+            <CustomSlide {...project} key={project.id} />
           ))}
         </Slider>
       </Box>

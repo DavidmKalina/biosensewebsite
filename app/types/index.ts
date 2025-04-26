@@ -1,7 +1,7 @@
 export interface ResearchPaper {
     title: string;
     url: string;
-    publishDate: string; // ISO date string
+    publishDate: string;
 }
 
 export interface Contributor {

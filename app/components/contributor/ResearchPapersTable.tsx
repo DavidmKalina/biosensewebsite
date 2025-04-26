@@ -1,6 +1,6 @@
 import { Box, Spinner, Text, Table } from '@chakra-ui/react';
 import { useEffect, useCallback, useMemo } from 'react';
-import { useReactTable, getCoreRowModel, ColumnDef, flexRender, getSortedRowModel } from '@tanstack/react-table';
+import { useReactTable, getCoreRowModel, ColumnDef, flexRender, getSortedRowModel, CellContext } from '@tanstack/react-table';
 import { useInView } from 'react-intersection-observer'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import type { ResearchPaper } from '../../types';
@@ -11,16 +11,54 @@ interface ResearchPapersTableProps {
   contributorApiId?: string;
 }
 
+function isValidDate(d: unknown): d is Date {
+  return d instanceof Date && !isNaN(d.getTime());
+}
+const linkcell: ColumnDef<ResearchPaper>['cell'] = (info) => (
+  <a href={info.row.original.url} target="_blank" rel="noopener noreferrer">
+    {`${info.getValue()}`}
+  </a>
+);
+const datecell: ColumnDef<ResearchPaper>['cell'] = (info) => info.getValue() && isValidDate(new Date(info.getValue()as string)) ? new Date(info.getValue() as string).toLocaleDateString() : '-';
+
+const columns: ColumnDef<ResearchPaper>[] = [
+  {
+    accessorKey: 'title',
+    header: 'Title',
+    cell: linkcell,
+  },
+  {
+    accessorKey: 'publishDate',
+    header: 'Publish Date',
+    cell: datecell,
+    sortingFn: 'datetime',
+  },
+] as const;
+
+const getRowId = (originalRow: ResearchPaper) => 'id' in originalRow ? `${originalRow.id}` : '';
+const sortingMode = {
+  sorting: [{ id: 'publishDate', desc: true }],
+};
+
 const ResearchPapersTable: React.FC<ResearchPapersTableProps> = ({ contributorApiId }) => {
   const { ref, inView } = useInView();
 
   const fetchNext = useCallback(async ({ pageParam }: { pageParam: number }) => {
     const response = await fetch(`https://api.semanticscholar.org/graph/v1/author/${contributorApiId}/papers?fields=url,title,publicationDate,paperId&offset=${pageParam}&limit=${PAGE_SIZE}`)
-    const result = await response.json();
-    const papers = (result.data || []).map((p: any) => ({
+    const result = (await response.json()) as {
+      data?: {
+        title: string,
+        url: string,
+        publicationDate: string,
+        paperId: string
+      }[],
+      next?: number,
+      offset?: number,
+    };
+    const papers: ResearchPaper[] = (result.data || []).map((p) => ({
       title: p.title,
       url: p.url,
-      publishDate: p.publicationDate ? new Date(p.publicationDate) : null,
+      publishDate: p.publicationDate,
       id: p.paperId
     }));
     return {
@@ -51,24 +89,6 @@ const ResearchPapersTable: React.FC<ResearchPapersTableProps> = ({ contributorAp
     }
   }, [fetchNextPage, inView])
 
-  const columns: ColumnDef<ResearchPaper>[] = [
-    {
-      accessorKey: 'title',
-      header: 'Title',
-      cell: info => (
-        <a href={info.row.original.url} target="_blank" rel="noopener noreferrer">
-          {`${info.getValue()}`}
-        </a>
-      ),
-    },
-    {
-      accessorKey: 'publishDate',
-      header: 'Publish Date',
-      cell: info => info.getValue() ? (info.getValue() as Date).toLocaleDateString() : '-',
-      sortingFn: 'datetime',
-    },
-  ];
-
   const preparedData = useMemo(
     () => data?.pages.map(page => page.data).flat() || [], 
     [data?.pages.length ?? 0]);
@@ -78,10 +98,8 @@ const ResearchPapersTable: React.FC<ResearchPapersTableProps> = ({ contributorAp
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     enableSorting: true,
-    getRowId: originalRow => originalRow.id,
-    state: {
-      sorting: [{ id: 'publishDate', desc: true }],
-    },
+    getRowId: getRowId,
+    state: sortingMode,
   });
 
   if (error) return <Text color="red.500">{typeof error === 'string' ? error : 'An error occurred.'}</Text>;
@@ -114,8 +132,8 @@ const ResearchPapersTable: React.FC<ResearchPapersTableProps> = ({ contributorAp
           ))}
         </Table.Body>
       </Table.Root>
-      {hasNextPage && <Box ref={ref} textAlign="center" py={2}>Loading...</Box>}
-      {isFetching && !isFetchingNextPage && <Spinner my={2} />}
+      {hasNextPage && <Box key="loadmore" ref={ref} textAlign="center" py={2}>Loading...</Box>}
+      {isFetching && !isFetchingNextPage && <Spinner key="loader" my={2} />}
     </Box>
   );
 };
