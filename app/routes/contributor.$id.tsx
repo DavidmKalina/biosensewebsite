@@ -1,4 +1,6 @@
 import { LoaderFunctionArgs, redirect } from "@remix-run/node"; // or cloudflare/deno
+import { useLoaderData } from "@remix-run/react";
+import { contributors, projects } from "~/data/sampleData";
 import ContributorPage from "~/pages/ContributorPage";
 
 export const loader = async ({
@@ -9,11 +11,13 @@ export const loader = async ({
   if(`${request.url}`.endsWith(params.id!))
     return redirect(`${request.url}/bio`);
 
-  return null;
+  const contributor = contributors.find(c => c.id === params.id);
+  return {contributor, projects};
 };
 
 export default function Index() {
+  const {contributor, projects} = useLoaderData<typeof loader>();
   return (
-    <ContributorPage />
+    <ContributorPage contributor={contributor} projects={projects} />
   );
 }

@@ -2,10 +2,33 @@ import ContributorResearchPapersTab from "~/components/contributor/ContributorRe
 import { useParams } from "react-router-dom";
 import { contributors } from "../data/sampleData";
 import { Container, Heading } from "@chakra-ui/react";
+import { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
+import { useLoaderData } from "@remix-run/react";
+
+export async function loader({
+  params,
+}: LoaderFunctionArgs) {
+  const contributor = contributors.find(c => c.id === params.id);
+  return contributor;
+}
+
+export const meta: MetaFunction = ({ params }) => {
+  const contributor = contributors.find(c => c.id === params.id);
+  return [
+    { title: `${contributor?.name} - Papers | BioSense`, },
+    {
+      property: "og:title",
+      content: `${contributor?.name} - Papers | BioSense`,
+    },
+    {
+      name: "description",
+      content: `Overview of papers written by ${contributor?.name}.`,
+    },
+  ];
+};
 
 export default function Index() {
-  const { id } = useParams<{ id: string }>();
-  const contributor = contributors.find(c => c.id === id);
+  const contributor = useLoaderData<typeof loader>();
 
   if (!contributor) {
     return (

@@ -1,13 +1,10 @@
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Container, Heading, Box, Image, Text, SimpleGrid, Card, Badge } from '@chakra-ui/react';
-import { projects, contributors } from '../data/sampleData';
+import { Contributor, Project } from '~/types';
 
 const CardRoot = Card.Root as React.ComponentType<React.ComponentProps<typeof Card.Root> & React.ComponentProps<typeof Link>>;
 
-const ProjectPage = () => {
-  const { id } = useParams<{ id: string }>();
-  const project = projects.find(p => p.id === id);
-
+const ProjectPage = ({ project, projectContributors }: { project: Project, projectContributors: Contributor[] }) => {
   if (!project) {
     return (
       <Container maxW="6xl" mx="auto" py={8}>
@@ -15,8 +12,6 @@ const ProjectPage = () => {
       </Container>
     );
   }
-
-  const projectContributors = contributors.filter(c => project.contributors.includes(c.id));
 
   return (
     <Container maxW="6xl" mx="auto" py={8}>

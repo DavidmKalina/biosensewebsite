@@ -1,5 +1,5 @@
 import { Box, Text, Spinner } from '@chakra-ui/react';
-import type { Contributor } from '../../types';
+import type { Contributor } from '~/types';
 import { useQuery } from '@tanstack/react-query';
 
 interface ContributorBioTabProps {

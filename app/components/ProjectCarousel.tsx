@@ -1,6 +1,6 @@
 import { Box, Heading, Image, useBreakpointValue, Card } from '@chakra-ui/react';
 import * as Slider2 from "@ant-design/react-slick";
-import type { Project } from '../types';
+import type { Project } from '~/types';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 

@@ -1,13 +1,10 @@
 import { useParams, useNavigate, NavLink, Outlet } from 'react-router-dom';
 import { Container, Heading, Card, Image, Box, Button, ButtonGroup } from '@chakra-ui/react';
-import { useEffect, useMemo } from 'react';
-import { contributors, projects } from '../data/sampleData';
+import { useMemo } from 'react';
 import ContributorProjects from '../components/contributor/ContributorProjects';
+import { Contributor, Project } from '~/types';
 
-const ContributorPage = () => {
-  const { id, tab = 'bio' } = useParams<{ id: string; tab?: string }>();
-  const contributor = contributors.find(c => c.id === id);
-
+const ContributorPage = ({ contributor, projects }: { contributor: Contributor, projects: Project[] }) => {
   const contributorProjects = useMemo(() => projects.filter(project =>
     contributor?.id && project.contributors.includes(contributor.id)
   ), [projects.length, contributor?.id]);
@@ -31,7 +28,7 @@ const ContributorPage = () => {
       </Card.Root>
       <ButtonGroup size="sm" variant="outline" attached>
         <Button asChild variant="outline"><NavLink
-          to={`/contributor/${id}/bio`}
+          to={`/contributor/${contributor.id}/bio`}
           className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? "active" : ""
           }
@@ -40,7 +37,7 @@ const ContributorPage = () => {
         </NavLink></Button>
         <Button asChild variant="outline">
         <NavLink
-          to={`/contributor/${id}/papers`}
+          to={`/contributor/${contributor.id}/papers`}
           className={({ isActive, isPending }) =>
             isPending ? "pending" : isActive ? "active" : ""
           }

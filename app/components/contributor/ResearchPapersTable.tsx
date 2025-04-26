@@ -3,7 +3,7 @@ import { useEffect, useCallback, useMemo } from 'react';
 import { useReactTable, getCoreRowModel, ColumnDef, flexRender, getSortedRowModel, CellContext } from '@tanstack/react-table';
 import { useInView } from 'react-intersection-observer'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import type { ResearchPaper } from '../../types';
+import type { ResearchPaper } from '~/types';
 
 const PAGE_SIZE = 10;
 

@@ -1,6 +1,6 @@
 import { SimpleGrid, Card, Image, Heading, Text, Box } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import type { Project } from '../../types';
+import type { Project } from '~/types';
 
 interface ContributorProjectsProps {
   projects: Project[];

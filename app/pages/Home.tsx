@@ -1,11 +1,11 @@
 import { Container, Heading, Grid, Image, Card } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import ProjectCarousel from '../components/ProjectCarousel';
-import { projects, contributors } from '../data/sampleData';
+import { Contributor, Project } from '~/types';
 
 const CardRoot = Card.Root as React.ComponentType<React.ComponentProps<typeof Card.Root> & React.ComponentProps<typeof RouterLink>>;
 
-const Home = () => {
+const Home = ({ contributors, projects }: { contributors: Contributor[]; projects: Project[] }) => {
   return (
     <Container maxW="6xl" mx="auto" py={4}>
       <Heading as="h1" size="xl" mb={4} textAlign="center">

@@ -1,6 +1,13 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
-import { useOutlet } from "@remix-run/react";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
+import { useLoaderData, useOutlet } from "@remix-run/react";
+import { contributors, projects } from "~/data/sampleData";
 import Home from "~/pages/Home";
+
+export async function loader({
+  params,
+}: LoaderFunctionArgs) {
+  return {projects, contributors};
+}
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,8 +18,9 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const outlet = useOutlet();
+  const {projects, contributors} = useLoaderData<typeof loader>();
   return (
-    outlet ? outlet : <Home />
+    outlet ? outlet : <Home projects={projects} contributors={contributors} />
   );
 }
 

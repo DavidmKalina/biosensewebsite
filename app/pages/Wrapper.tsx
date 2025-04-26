@@ -4,11 +4,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import Navbar from '../components/Navbar';
-import Home from '../pages/Home';
-import ProjectPage from '../pages/ProjectPage';
-import ContributorPage from '../pages/ContributorPage';
 import { PropsWithChildren } from 'react';
-import { Outlet } from '@remix-run/react';
 
 export const system = createSystem(defaultConfig, {
   theme: {
@@ -33,7 +29,7 @@ function App({ children }: PropsWithChildren<{}>) {
       <QueryClientProvider client={queryClient}>
         <Box minW={"100vw"}>
             <Navbar />
-            <Outlet />
+            {children}
         </Box>
       </QueryClientProvider>
     </ChakraProvider>

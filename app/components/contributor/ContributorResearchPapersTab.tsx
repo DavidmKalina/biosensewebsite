@@ -1,5 +1,5 @@
 import { Box, Spinner } from '@chakra-ui/react';
-import type { ResearchPaper } from '../../types';
+import type { ResearchPaper } from '~/types';
 import { lazy, Suspense } from 'react';
 
 const ResearchPapersTable = lazy(() => import('./ResearchPapersTable.js'));
