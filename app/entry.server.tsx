@@ -33,6 +33,25 @@ export function handleDataRequest(
   return response;
 }
 
+const hexlist = '0123456789abcdef';
+const b64list = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+function guid_to_base64(g: string) {
+  let s = g.replace(/[^0-9a-f]/ig, '').toLowerCase();
+  s += '0';
+  let a, p, q;
+  let r = '';
+  let i = 0;
+  while (i < 33) {
+    a = (hexlist.indexOf(s.charAt(i++)) << 8) |
+      (hexlist.indexOf(s.charAt(i++)) << 4) |
+      (hexlist.indexOf(s.charAt(i++)));
+    p = a >> 6;
+    q = a & 63;
+    r += b64list.charAt(p) + b64list.charAt(q);
+  }
+  return r;
+}
+
 export default async function handleRequest(
   request: Request,
   responseStatusCode: number,
@@ -43,7 +62,7 @@ export default async function handleRequest(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   loadContext: AppLoadContext
 ) {
-  const noncevalue = crypto.randomUUID();
+  const noncevalue = guid_to_base64(crypto.randomUUID());
   
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), ABORT_DELAY);
@@ -84,8 +103,12 @@ export default async function handleRequest(
   responseHeaders.set("Cross-Origin-Opener-Policy", "same-origin");
   responseHeaders.set("Cross-Origin-Resource-Policy", "same-site");
 
-  responseHeaders.set("Content-Security-Policy", `default-src 'self'; script-src 'self' 'strict-dynamic' 'nonce-${noncevalue}'; style-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com; connect-src 'self' https://api.semanticscholar.org; prefetch-src https://fonts.gstatic.com https://fonts.googleapis.com https://api.semanticscholar.org; child-src 'none'; frame-src 'none'; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; disown-opener`);
+  responseHeaders.set("Content-Security-Policy", `default-src 'self'; script-src https://challenges.cloudflare.com static.cloudflareinsights.com 'self' 'strict-dynamic' 'nonce-${noncevalue}' 'unsafe-inline'; style-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com 'unsafe-inline'; frame-src https://challenges.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com; connect-src cloudflareinsights.com 'self' https://api.semanticscholar.org; prefetch-src https://fonts.gstatic.com https://fonts.googleapis.com https://api.semanticscholar.org; child-src 'none'; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests; block-all-mixed-content; disown-opener; base-uri 'none'; require-trusted-types-for 'script'`);
 
+  responseHeaders.set("Service-Worker-Allowed", "/");
+  const hints = "Accept, Sec-CH-UA, Sec-CH-UA-Mobile, Sec-CH-UA-Platform, Sec-CH-UA-Form-Factors, Sec-CH-UA-Model, Sec-CH-UA-Platform-Version, Sec-CH-Prefers-Reduced-Transparency, Sec-CH-Prefers-Reduced-Motion, Sec-CH-Prefers-Color-Scheme, Device-Memory, Width, Viewport-Width, Save-Data, Downlink, ECT, RTT, Available-Dictionary, Dictionary-ID, Use-As-Dictionary, Origin-Agent-Cluster, Accept-Signature, Early-Data, Signature, Signed-Headers, Speculation-Rules, Supports-Loading-Mode";
+  responseHeaders.set("Accept-CH", hints);
+  responseHeaders.set("Vary", hints);
   return new Response(body, {
     headers: responseHeaders,
     status: responseStatusCode,
