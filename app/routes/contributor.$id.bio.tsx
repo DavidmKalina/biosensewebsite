@@ -23,6 +23,7 @@ export const meta: MetaFunction<typeof loader> = ({ data: contributor }) => {
       name: "description",
       content: `Bio of ${contributor?.name}.`,
     },
+    { rel: 'preconnect', href: `https://api.semanticscholar.org`, crossOrigin: "anonymous" }
   ];
 };
 

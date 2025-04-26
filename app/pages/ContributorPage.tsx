@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import ContributorProjects from '../components/contributor/ContributorProjects';
 import { Contributor, Project } from '~/types';
 
-const ContributorPage = ({ contributor, projects }: { contributor: Contributor, projects: Project[] }) => {
+const ContributorPage = ({ contributor, projects }: { contributor?: Contributor, projects: Project[] }) => {
   const contributorProjects = useMemo(() => projects.filter(project =>
     contributor?.id && project.contributors.includes(contributor.id)
   ), [projects.length, contributor?.id]);

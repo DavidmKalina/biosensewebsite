@@ -19,6 +19,8 @@
 		"@chakra-ui/icons": "^2.1.1",
 		"@chakra-ui/react": "^3.16.1",
 		"@emotion/react": "^11.14.0",
+		"@emotion/server": "^11.11.0",
+		"@mcansh/http-helmet": "^0.13.0",
 		"@remix-run/cloudflare": "^2.16.5",
 		"@remix-run/cloudflare-pages": "^2.16.5",
 		"@remix-run/react": "^2.16.5",

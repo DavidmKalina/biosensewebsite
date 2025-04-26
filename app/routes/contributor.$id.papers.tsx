@@ -24,6 +24,7 @@ export const meta: MetaFunction = ({ params }) => {
       name: "description",
       content: `Overview of papers written by ${contributor?.name}.`,
     },
+    { rel: 'preconnect', href: `https://api.semanticscholar.org`, crossOrigin: "anonymous" }
   ];
 };
 

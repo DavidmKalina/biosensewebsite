@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import type { ResearchPaper } from '~/types';
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 100;
 
 interface ResearchPapersTableProps {
   contributorApiId?: string;
@@ -44,7 +44,10 @@ const ResearchPapersTable: React.FC<ResearchPapersTableProps> = ({ contributorAp
   const { ref, inView } = useInView();
 
   const fetchNext = useCallback(async ({ pageParam }: { pageParam: number }) => {
-    const response = await fetch(`https://api.semanticscholar.org/graph/v1/author/${contributorApiId}/papers?fields=url,title,publicationDate,paperId&offset=${pageParam}&limit=${PAGE_SIZE}`)
+    const response = await fetch(`https://api.semanticscholar.org/graph/v1/author/${contributorApiId}/papers?fields=url,title,publicationDate,paperId&offset=${pageParam}&limit=${PAGE_SIZE}`, {
+      mode: "cors",
+      credentials: "omit"
+    })
     const result = (await response.json()) as {
       data?: {
         title: string,

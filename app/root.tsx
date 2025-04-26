@@ -11,6 +11,8 @@ import {
 
 import "./tailwind.css";
 import Wrapper from "./pages/Wrapper";
+import { NonceContext } from "./misc/nonce-context";
+import { useContext } from "react";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -26,6 +28,7 @@ export const links: LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const nonce = useContext(NonceContext);
   return (
     <html lang="en">
       <head>
@@ -36,8 +39,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <Wrapper>{children}</Wrapper>
-        <ScrollRestoration />
-        <Scripts />
+        <ScrollRestoration nonce={nonce} />
+        <Scripts nonce={nonce} />
       </body>
     </html>
   );

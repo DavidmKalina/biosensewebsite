@@ -9,8 +9,15 @@ interface ContributorBioTabProps {
 const fetchBio = async ({ queryKey }: { queryKey: [string, string | undefined] }) => {
     const [, contributorApiId] = queryKey;
     if (!contributorApiId) return {};
-    const res = await fetch(`https://api.semanticscholar.org/graph/v1/author/${contributorApiId}?fields=url,citationCount,paperCount`)
-    const data = await res.json()
+    const res = await fetch(`https://api.semanticscholar.org/graph/v1/author/${contributorApiId}?fields=url,citationCount,paperCount`, {
+      mode: "cors",
+      credentials: "omit"
+    })
+    const data = await res.json() as {
+      url?: string;
+      citationCount?: number; 
+      paperCount?: number;
+    }
     return {
       url: data.url,
       citationCount: data.citationCount,
