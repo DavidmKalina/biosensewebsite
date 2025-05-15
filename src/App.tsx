@@ -5,9 +5,14 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import Navbar from './components/Navbar';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import ProjectPage from './pages/ProjectPage';
 import ContributorPage from './pages/ContributorPage';
+import About from './pages/About';
+import GetInvolved from './pages/GetInvolved';
+import Team from './pages/Team';
 
 export const system = createSystem(defaultConfig, {
   theme: {
@@ -30,8 +35,9 @@ function App() {
   return (
     <ChakraProvider value={system}>
       <QueryClientProvider client={queryClient}>
-        <Box minW={"100vw"}>
+        <Box minW={"100vw"} mt={16}>
           <Router>
+            <ScrollToTop />
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />
@@ -39,12 +45,25 @@ function App() {
               {/* ContributorPage handles both /contributor/:id and /contributor/:id/:tab */}
               <Route path="/contributor/:id" element={<Navigate relative="route" to="bio" replace />} />
               <Route path="/contributor/:id/:tab" element={<ContributorPage />} />
+<Route path="/about" element={<About />} />
+<Route path="/get-involved" element={<GetInvolved />} />
+<Route path="/team" element={<Team />} />
             </Routes>
           </Router>
         </Box>
       </QueryClientProvider>
     </ChakraProvider>
   );
+}
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
 }
 
 export default App;
