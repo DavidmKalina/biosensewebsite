@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Container } from '@chakra-ui/react';
+import { Box, Flex, Container } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 const HeadingLink = (props: any) => <Box as={Link} {...props} />;
