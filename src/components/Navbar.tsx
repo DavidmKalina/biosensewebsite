@@ -64,7 +64,9 @@ const Navbar = () => {
   // If 'open' is indeed the property, then code should be: const { open, onOpen, onClose } = useDisclosure();
   // However, Chakra docs consistently use 'isOpen'. This might be a misconfiguration in the build environment's TS.
   // For now, sticking to 'isOpen' as per documentation.
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // Previous Error: TS2339: Property 'isOpen' does not exist on type '{ open: boolean; ... }'.
+  // Addressing this by using 'open' as suggested by the error type.
+  const { open, onOpen, onClose } = useDisclosure();
 
   const links = [
     { name: 'Home', path: '/', icon: FaHome },
@@ -93,10 +95,10 @@ const Navbar = () => {
         </Flex>
 
         {/* Mobile Menu Icon */}
-        {/* Error TS2322: Property 'icon' does not exist... Did you mean '_icon'? */}
+        {/* Error TS2322: Type 'Element' is not assignable to type 'Nested<SystemStyleObject>' for _icon */}
         <IconButton
           aria-label="Open Menu"
-          _icon={<HamburgerIcon />} // Changed 'icon' to '_icon' based on TS error
+          _icon={HamburgerIcon} // Changed from <HamburgerIcon /> to HamburgerIcon (the component itself)
           size="md"
           display={{ base: 'flex', md: 'none' }}
           onClick={onOpen}
@@ -111,7 +113,7 @@ const Navbar = () => {
       {/* Assuming standard imports are correct & build env has issue. */}
       {/* If these components are truly not found/usable, the build will fail. */}
       {/* This code assumes they *should* work as per Chakra v3.x docs. */}
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+      <Drawer isOpen={open} placement="right" onClose={onClose}> {/* Changed isOpen to open */}
         <DrawerOverlay />
         <DrawerContent bg="blue.600" color="white">
           <DrawerCloseButton /> {/* This also had TS2305 */}
