@@ -25,7 +25,6 @@ export interface NewsItem {
   category: string;
 }
 
-// New type for publications
 export interface Publication {
   id: string;
   title: string;
@@ -36,10 +35,11 @@ export interface Publication {
   doi?: string;
 }
 
-// New type for partners
+// Alias for legacy components to prevent build errors
+export type ResearchPaper = Publication;
+
 export interface Partner {
   id: string;
   name: string;
   websiteUrl: string;
-  // logoUrl: '/images/partners/partner-logo.png'
 }

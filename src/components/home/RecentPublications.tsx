@@ -12,7 +12,8 @@ import {
   Grid,
 } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
-import { publications, Publication } from '../../data/sampleData';
+import { publications } from '../../data/sampleData';
+import { Publication } from '../../types'; // <-- FIX: Importing the type from the correct module
 import { motion } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import {
