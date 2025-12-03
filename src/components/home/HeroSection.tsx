@@ -5,12 +5,15 @@ import {
   Heading,
   Button,
   Box,
+  Text,
+  VStack,
 } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { buttonHoverTap } from './animationVariants';
 
 const MotionHeading = motion(Heading);
+const MotionText = motion(Text);
 const MotionBox = motion(Box);
 const MotionButton = motion(Button);
 
@@ -35,39 +38,50 @@ export const HeroSection = () => {
       
       color="white" 
     >
-      {/* TOP CONTENT: Heading */}
-      <MotionHeading
-        as="h1"
-        size={{ base: '4xl', md: '6xl' }} // Increased size for impact since description is gone
-        lineHeight="1.1"
-        color="white"
-        textAlign="center"
-        textShadow="0 4px 12px rgba(0,0,0,0.5)" // Shadow for readability
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        mt={4} // Slight margin from the very top for aesthetics
-      >
-        BioSIS Lab
-      </MotionHeading>
+      {/* TOP CONTENT: Titles */}
+      <VStack gap={2} mt={4} textAlign="center" zIndex={1}>
+        <MotionHeading
+          as="h1"
+          size={{ base: '4xl', md: '6xl' }}
+          lineHeight="1.1"
+          color="white"
+          textShadow="0 4px 12px rgba(0,0,0,0.5)"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          BioSIS Lab
+        </MotionHeading>
+        
+        <MotionText
+          fontSize={{ base: 'xl', md: '3xl' }}
+          fontWeight="medium"
+          color="gray.100"
+          textShadow="0 2px 4px rgba(0,0,0,0.6)"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          Biosensing and Intelligence Systems Laboratory
+        </MotionText>
+      </VStack>
 
       {/* BOTTOM CONTENT: Button */}
-      {/* The justify="space-between" on the parent Flex pushes this Box to the bottom */}
       <MotionBox
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        mb={4} // Slight margin from the very bottom edge
+        mb={4}
       >
         <MotionButton
           asChild
-          size="xl" // Made button larger
+          size="xl"
           px={12}
           bg="white"
           color="blue.700"
           fontWeight="bold"
           fontSize="lg"
-          rounded="full" // Rounded pill shape looks modern
+          rounded="full"
           _hover={{ bg: "gray.100", transform: "translateY(-2px)" }}
           shadow="lg"
           {...buttonHoverTap}
