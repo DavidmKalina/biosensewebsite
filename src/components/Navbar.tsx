@@ -54,14 +54,11 @@ const NavLinkItem = ({
       transition="color 0.2s"
       _focus={{ outline: 'none', boxShadow: 'none' }}
       _focusVisible={{ outline: 'none', boxShadow: 'none' }}
+      _currentPage={{ fontWeight: 'bold', color: 'blue.700' }}
     >
       <NavLink
         to={to}
         onClick={onClick}
-        style={({ isActive }) => ({
-          fontWeight: isActive ? 'bold' : 'medium',
-          color: isActive ? 'var(--chakra-colors-blue-700)' : undefined,
-        })}
       >
         {children}
       </NavLink>
