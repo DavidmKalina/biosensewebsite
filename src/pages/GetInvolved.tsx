@@ -23,7 +23,7 @@ const GetInvolved: React.FC = () => {
         </button>
       </div>
       <h2>Transparency</h2>
-      <p>We ensure that your contributions are used effectively to maximize impact. Our financial reports and project updates are available to all donors.</p>
+      <p>We ensure that your contributions are used effectively to maximise impact. Our financial reports and project updates are available to all donors.</p>
     </div>
   );
 };

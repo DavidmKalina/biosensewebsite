@@ -11,8 +11,9 @@ import Home from './pages/Home';
 import ProjectPage from './pages/ProjectPage';
 import ContributorPage from './pages/ContributorPage';
 import About from './pages/About';
-import GetInvolved from './pages/GetInvolved';
+import Contact from './pages/Contact';
 import Team from './pages/Team';
+import Publications from './pages/Publications';
 import { theme } from './theme';
 import Footer from './components/Footer'; // Import the new Footer
 
@@ -35,8 +36,9 @@ function App() {
                 <Route path="/contributor/:id" element={<Navigate relative="route" to="bio" replace />} />
                 <Route path="/contributor/:id/:tab" element={<ContributorPage />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/get-involved" element={<GetInvolved />} />
+                <Route path="/contact" element={<Contact />} />
                 <Route path="/team" element={<Team />} />
+                <Route path="/publications" element={<Publications />} />
               </Routes>
             </Box>
 

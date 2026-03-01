@@ -51,8 +51,8 @@ export const theme = createSystem(defaultConfig, {
         },
       },
       fonts: {
-        body: { value: 'Inter, sans-serif' },
-        heading: { value: 'Inter, sans-serif' },
+        heading: { value: "'Plus Jakarta Sans', sans-serif" },
+        body: { value: "'Inter', sans-serif" },
       },
     },
   },

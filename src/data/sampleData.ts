@@ -1,11 +1,27 @@
-import { Contributor, Project, NewsItem, Publication, Partner } from '../types';
+import { Contributor, NewsItem, Publication, Partner } from '../types';
 
 export const contributors: Contributor[] = [
+  {
+    id: 'raul-fernandez-rojas',
+    name: 'Dr. Raul Fernandez Rojas',
+    role: 'Associate Professor',
+    bio: "Dr Raul Fernandez Rojas (Member, IEEE) received a Ph.D. degree from the University of Canberra, Australia, in 2018, with a focus on biomarker identification using computational methods. He is currently an Associate Professor with the Faculty of Science and Technology. His research interests includes Signal Processing, fNIRS, Machine Learning, EEG, Multimodal Sensing. He published several papers in the above mentioned domains.",
+    imageUrl: '/images/contributors/raul-fernandez-rojas.png',
+    contributorApiId: '',
+  },
+  {
+    id: 'maryam-ghahramani',
+    name: 'Dr. Maryam Ghahramani',
+    role: 'Senior Lecturer',
+    bio: "Dr Maryam Ghahramani received her B.Sc. degree in Electrical Engineering from Shiraz University, Iran. She completed her Ph.D. at the University of Wollongong, Australia, with a focus on biometric gait and motion analysis and fall risk assessment in older adults. She is currently a Senior Lecturer in Engineering with the Faculty of Science and Technology at the University of Canberra. Her research interests include human motion analysis, machine learning, and rehabilitation-focused sensing technologies.",
+    imageUrl: '/images/contributors/maryam-ghahramani.png',
+    contributorApiId: '',
+  },
   {
     id: 'sumair-aziz',
     name: 'Sumair Aziz',
     role: 'PhD Candidate',
-    bio: 'Sumair Aziz is currently pursuing a Ph.D. at the University of Canberra, focusing on the design of reliable embedded systems for objective pain assessment using bio signal analysis. With a Master\'s degree in Electrical Engineering from COMSATS University Islamabad, Pakistan, and over a decade of research and development experience, Sumair has worked with numerous academic and research organizations. He has also served as an instructor for embedded systems at the University of Engineering and Technology Taxila, Pakistan. His research interests are intelligent embedded systems, signal processing, machine learning, and pattern recognition.',
+    bio: 'Sumair Aziz is currently pursuing a Ph.D. at the University of Canberra, focusing on the design of reliable embedded systems for objective pain assessment using bio signal analysis. With a Master\'s degree in Electrical Engineering from COMSATS University Islamabad, Pakistan, and over a decade of research and development experience, Sumair has worked with numerous academic and research organisations. He has also served as an instructor for embedded systems at the University of Engineering and Technology Taxila, Pakistan. His research interests are intelligent embedded systems, signal processing, machine learning, and pattern recognition.',
     imageUrl: '/images/contributors/sumair-aziz.png',
     contributorApiId: '27005482',
   },
@@ -37,7 +53,7 @@ export const contributors: Contributor[] = [
     id: 'farhan-rashid',
     name: 'Farhan Ahnaf Rashid',
     role: 'PhD Candidate',
-    bio: "Farhan Ahnaf Rashid received a Master of Engineering (Research) in Electrical and Data Engineering from the University of Technology Sydney, where his thesis was working on developing a machine learning-based fall detection system for the elderly and disabled. His work utilized datasets such as SisFall and MobiFall, evaluating over 24 classification algorithms to determine the accuracy in fall detection. He also holds a Bachelor of Engineering (Honours) in Electrical and Electronic Engineering from Heriot-Watt University, having completed foundational years at the University of Manchester. Farhan has worked a lecturer and tutor at the Melbourne Institute of Technology Sydney Campus, where he taught operating systems courses and tutored courses in ethical hacking, networking, and web development. As a research assistant, he contributed to machine learning projects involving image labelling for environmental detection tasks. At the University of Canberra, he is currently working as a mentor and tutor on capstone projects, database design and information security.  He is currently pursuing a PhD in the field of biomedical signal processing, focusing on Parkinson’s disease detection through multimodal data analysis.",
+    bio: "Farhan Ahnaf Rashid received a Master of Engineering (Research) in Electrical and Data Engineering from the University of Technology Sydney, where his thesis was working on developing a machine learning-based fall detection system for the elderly and disabled. His work utilised datasets such as SisFall and MobiFall, evaluating over 24 classification algorithms to determine the accuracy in fall detection. He also holds a Bachelor of Engineering (Honours) in Electrical and Electronic Engineering from Heriot-Watt University, having completed foundational years at the University of Manchester. Farhan has worked a lecturer and tutor at the Melbourne Institute of Technology Sydney Campus, where he taught operating systems courses and tutored courses in ethical hacking, networking, and web development. As a research assistant, he contributed to machine learning projects involving image labelling for environmental detection tasks. At the University of Canberra, he is currently working as a mentor and tutor on capstone projects, database design and information security.  He is currently pursuing a PhD in the field of biomedical signal processing, focusing on Parkinson’s disease detection through multimodal data analysis.",
     imageUrl: '/images/contributors/farhan-rashid.png',
     contributorApiId: '',
   },
@@ -52,9 +68,25 @@ export const contributors: Contributor[] = [
   {
     id: 'maryam-sousani',
     name: 'Maryam Sousani',
-    role: 'PhD Student',
+    role: 'PhD Candidate',
     bio: "Maryam Sousani is a Ph.D. student at the University of Canberra, with a research focus on the assessment of brain activity patterns and body motion in individuals with Parkinson’s disease. She holds a master’s degree in communications systems engineering and a bachelor’s degree in electronics engineering. Maryam’s research interests include brain signal processing, electrical stimulation, brain-computer interfaces, and machine learning. Through her current Ph.D. work, she combines functional near-infrared spectroscopy (fNIRS) and inertial measurement units (IMU) to uncover subtle neural and motor changes that may not be visible through traditional clinical assessments. Her work aims to improve the early detection and monitoring of Parkinson’s disease, ultimately contributing to more personalised and effective management strategies for those affected.",
     imageUrl: '/images/contributors/maryam-sousani.png',
+    contributorApiId: '',
+  },
+  {
+    id: 'david-kalina',
+    name: 'David Kalina',
+    role: 'PhD Candidate',
+    bio: "David Kalina is a PhD candidate at the University of Canberra, Australia. He holds a Bachelor of Engineering (Honours) in Network and Software Engineering from the University of Canberra. His research explores Virtual Reality–based acute pain management and the integration of biosensors to develop predictive, personalised approaches to drug-free pain relief.\n\nBefore commencing his PhD, David worked as a nurse call systems programmer, deploying custom solutions for Advanced Care and Vitalcall systems across rural hospitals and aged care facilities. Working closely with clinical staff and diverse patient populations shaped his interest in building practical, patient-focused healthcare technologies.",
+    imageUrl: '',
+    contributorApiId: '',
+  },
+  {
+    id: 'adam-smith',
+    name: 'Dr. Adam Smith',
+    role: 'External Collaborator',
+    bio: '',
+    imageUrl: '',
     contributorApiId: '',
   },
   {
@@ -66,64 +98,61 @@ export const contributors: Contributor[] = [
   },
 ];
 
-export const projects: Project[] = [
+export const projects: any[] = [
   {
-    id: 'coral-reef-restoration',
-    title: 'Coral Reef Restoration Project',
-    shortDescription:
-      'Innovative approaches to restore damaged coral reefs using biotechnology and marine science.',
-    fullDescription:
-      "This project combines cutting-edge biotechnology with marine science to develop new methods for coral reef restoration. Using a novel approach to coral propagation, we've successfully increased coral growth rates by 300% while improving resilience to environmental stressors. The project includes extensive field testing in the Great Barrier Reef, with promising results for large-scale reef restoration efforts.",
-    imageUrl: '/images/projects/coral-reef.jpg',
-    contributors: ['sumair-aziz', 'umar-khan'],
+    id: 'ai-pain-detection',
+    title: 'Multimodal Signal Processing for Objective Human Pain Assessment',
+    shortDescription: 'Objective pain assessment using bio-signal analysis and AI.',
+    fullDescription: 'Pain is an essential biological signal, yet its assessment in clinical practice remains largely subjective and dependent on self-report or behavioural observation. This approach becomes particularly unreliable in individuals who are unable to communicate effectively, including stroke survivors, infants, patients with neurological disorders, or those under sedation. The aim of this project is to develop an accurate and objective framework for pain assessment by analysing multiple physiological signals that reflect the body’s automatic response to painful stimuli. These signals originate from the skin, heart, and brain, each capturing a distinct dimension of the pain response. By integrating these complementary sources of information, the project seeks to provide a more comprehensive and reliable assessment than any single modality alone.\n\nThis research focuses on multimodal signal processing and advanced artificial intelligence models to identify robust and generalisable biomarkers of pain across individuals. By integrating information from the skin, heart, and brain, the project aims to improve classification accuracy while reducing reliance on behavioural cues. Controlled laboratory-induced pain is used for systematic evaluation and model development, with the long-term objective of facilitating clinical validation. The work contributes to the development of accurate, data-driven, and physiologically grounded tools for objective human pain assessment.',
+    imageUrl: '/images/projects/ai_pain_detection.png',
+    bannerUrl: '/images/projects/ai_pain_detection_banner.png',
+    contributors: ['umar-khan'],
   },
   {
-    id: 'quantum-molecular-modeling',
-    title: 'Quantum Molecular Modeling',
-    shortDescription:
-      'Using quantum computing to revolutionize molecular modeling for drug discovery.',
-    fullDescription:
-      'This groundbreaking project leverages quantum computing algorithms to simulate complex molecular interactions with unprecedented accuracy. Our team has developed a new quantum-based approach that reduces computational time for drug molecule simulations from months to hours, potentially accelerating the drug discovery process significantly.',
-    imageUrl: '/images/projects/quantum-modeling.jpg',
-    contributors: ['umar-khan', 'zongyi-jiang'],
+    id: 'dementia-detection',
+    title: 'Detection of dementia using neuroimaging and machine learning',
+    shortDescription: 'Early detection of dementia using neuroimaging and machine learning.',
+    fullDescription: 'Dementia is a major global health problem. According to the World Alzheimer Report 2024, more than 55 million people were living with dementia worldwide in 2020. In Australia alone, around 425,000 people were living with dementia in 2024. These numbers show how important early and accurate detection is.\n\nIn this study, we are using fNIRS, a safe, non-invasive, and portable brain imaging technique. It measures changes in blood oxygen levels in the brain, which reflect brain activity. Data is acquired primarily from the prefrontal cortex during structured cognitive and motor paradigms. After collecting the data, the signals undergo systematic preprocessing followed by extraction of discriminative features and utilisation machine learning algorithms to distinguish between healthy individuals and people with dementia.\n\nThe aim of this research is to explore how neuroimaging data can be used for the automated detection of dementia using machine learning. It investigates which cognitive or motor tasks are most effective in revealing differences between healthy individuals and people with dementia. The study also focuses on identifying the most useful features from brain signals that can improve classification accuracy and support reliable, early detection.',
+    imageUrl: '/images/projects/dementia_detection.png',
+    bannerUrl: '/images/projects/dementia_detection_banner.png',
+    contributors: ['hamza-shabbir-minhas'],
   },
   {
-    id: 'sustainable-agriculture',
-    title: 'Smart Sustainable Agriculture',
-    shortDescription:
-      'Developing AI-powered solutions for sustainable farming practices.',
-    fullDescription:
-      'The Smart Sustainable Agriculture project combines IoT sensors, AI algorithms, and environmental science to optimize farming practices. Our system provides real-time recommendations for water usage, pest control, and crop rotation, resulting in a 40% reduction in water consumption and a 25% increase in crop yield while minimizing environmental impact.',
-    imageUrl: '/images/projects/smart-agriculture.jpg',
-    contributors: ['zongyi-jiang', 'sumair-aziz'],
+    id: 'vr-pain-management',
+    title: 'Virtual Reality for Acute Pain Management',
+    shortDescription: 'Integrating VR and biosensors for predictive, drug-free pain relief.',
+    fullDescription: 'This research explores Virtual Reality–based acute pain management and the integration of biosensors to develop predictive, personalised approaches to drug-free pain relief. By immersing patients in controlled virtual environments while monitoring physiological responses, we aim to reduce the reliance on pharmaceutical interventions for acute pain and improve patient outcomes in clinical settings.',
+    imageUrl: '/images/projects/vr_pain.png',
+    bannerUrl: '/images/projects/vr_pain_banner.png',
+    contributors: ['david-kalina'],
   },
 ];
 
 export const latestNews: NewsItem[] = [
   {
     id: '1',
-    date: '2025-10-28',
-    title: 'Dr. Maria Rodriguez Presents at Global Tech Summit',
+    date: '2025-11-15',
+    title: 'Advancements in AI Pain Detection',
     summary:
-      'Dr. Rodriguez discussed the future of AI in sustainable agriculture, showcasing our latest findings.',
-    link: '/project/sustainable-agriculture',
-    category: 'Conference',
+      'Our team has made significant strides in objective pain assessment using bio-signal analysis.',
+    link: '/project/ai-pain-detection',
+    category: 'Research',
   },
   {
     id: '2',
-    date: '2025-10-15',
-    title: 'New Publication: Quantum Molecular Modeling',
+    date: '2025-10-20',
+    title: 'New Study on Dementia Detection',
     summary:
-      'Our group has published a new paper on quantum-based molecular simulations in "Nature Physics".',
-    link: '/project/quantum-molecular-modeling',
-    category: 'Publication',
+      'Exploring the integration of neuroimaging and machine learning for early diagnosis.',
+    link: '/project/dementia-detection',
+    category: 'Research',
   },
   {
     id: '3',
     date: '2025-09-30',
     title: 'Welcome New PhD Candidate, Umar Khan',
     summary:
-      'We are thrilled to welcome Umar Khan to the team, who will be focusing on coral reef biotechnology.',
+      'We are thrilled to welcome Umar Khan to the team, who will be focusing on AI pain detection.',
     link: '/contributor/umar-khan/bio',
     category: 'Team',
   },
@@ -150,38 +179,18 @@ export const publications: Publication[] = [
     url: 'https://example.com/publication-link',
     doi: '10.1186/s12984-024-01234-5',
   },
-  {
-    id: 'p3',
-    title:
-      'Validating Optical-Fibre Sensing for Postural Sway Measurement',
-    authors: ['Abishek Shrestha', 'John Doe'],
-    journal: 'Sensors (MDPI)',
-    year: 2024,
-    url: 'https://example.com/publication-link',
-    doi: '10.3390/s24010123',
-  },
 ];
 
 // New data for partners
 export const partners: Partner[] = [
   {
-    id: 'partner1',
-    name: 'Australian Research Council',
-    websiteUrl: 'https://www.arc.gov.au',
+    id: 'uc',
+    name: 'University of Canberra',
+    websiteUrl: 'https://www.canberra.edu.au',
   },
   {
-    id: 'partner2',
-    name: 'CSIRO',
-    websiteUrl: 'https://www.csiro.au',
-  },
-  {
-    id: 'partner3',
-    name: 'National Health and Medical Research Council',
-    websiteUrl: 'https://www.nhmrc.gov.au',
-  },
-  {
-    id: 'partner4',
-    name: 'Microsoft Research',
-    websiteUrl: 'https://www.microsoft.com/en-us/research/',
+    id: 'nch',
+    name: 'North Canberra Hospital',
+    websiteUrl: 'https://www.canberrahealthservices.act.gov.au/locations-and-directions/north-canberra-hospital',
   },
 ];

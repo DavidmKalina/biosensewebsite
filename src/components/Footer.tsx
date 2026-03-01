@@ -43,7 +43,7 @@ const Footer = () => {
               <RouterLink to="/team">Team</RouterLink>
             </Link>
             <Link asChild _hover={{ color: 'primary' }}>
-              <RouterLink to="/get-involved">Get Involved</RouterLink>
+              <RouterLink to="/contact">Contact Us</RouterLink>
             </Link>
           </VStack>
 
@@ -53,18 +53,18 @@ const Footer = () => {
               Research
             </Text>
             <Link asChild _hover={{ color: 'primary' }}>
-              <RouterLink to="/project/coral-reef-restoration">
-                Coral Reef Restoration
+              <RouterLink to="/project/ai-pain-detection">
+                AI Pain Detection
               </RouterLink>
             </Link>
             <Link asChild _hover={{ color: 'primary' }}>
-              <RouterLink to="/project/quantum-molecular-modeling">
-                Quantum Modeling
+              <RouterLink to="/project/dementia-detection">
+                Dementia Detection
               </RouterLink>
             </Link>
             <Link asChild _hover={{ color: 'primary' }}>
-              <RouterLink to="/project/sustainable-agriculture">
-                Smart Agriculture
+              <RouterLink to="/project/vr-pain-management">
+                VR Pain Management
               </RouterLink>
             </Link>
           </VStack>
@@ -114,8 +114,9 @@ const Footer = () => {
               >
                 <IconButton
                   aria-label="GitHub"
-                  variant="ghost"
-                  _hover={{ color: 'primary' }}
+                  variant="surface"
+                  colorPalette="blue"
+                  size="sm"
                 >
                   <FaGithub size="24px" />
                 </IconButton>
@@ -128,8 +129,9 @@ const Footer = () => {
               >
                 <IconButton
                   aria-label="LinkedIn"
-                  variant="ghost"
-                  _hover={{ color: 'primary' }}
+                  variant="surface"
+                  colorPalette="blue"
+                  size="sm"
                 >
                   <FaLinkedin size="24px" />
                 </IconButton>
@@ -142,8 +144,9 @@ const Footer = () => {
               >
                 <IconButton
                   aria-label="Twitter"
-                  variant="ghost"
-                  _hover={{ color: 'primary' }}
+                  variant="surface"
+                  colorPalette="blue"
+                  size="sm"
                 >
                   <FaTwitter size="24px" />
                 </IconButton>

@@ -9,82 +9,76 @@ import {
   HStack,
   Link,
   Button,
-  Grid,
+  Badge,
+  Card,
 } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import { publications } from '../../data/sampleData';
 import { Publication } from '../../types'; // <-- FIX: Importing the type from the correct module
 import { motion } from 'framer-motion';
-import { FaExternalLinkAlt } from 'react-icons/fa';
+import { LuExternalLink, LuBookOpen } from 'react-icons/lu';
 import {
-  sectionAnimation,
   containerVariants,
   itemVariants,
-  buttonHoverTap,
 } from './animationVariants';
 import { useMemo } from 'react';
 
 const MotionBox = motion(Box);
 const MotionVStack = motion(VStack);
-const MotionButton = motion(Button);
 
-/**
- * Sub-component for rendering a single publication in the list.
- */
 const PublicationItem = ({ pub }: { pub: Publication }) => {
   return (
-    <MotionBox
-      variants={itemVariants}
-      py={6}
-      borderBottomWidth="1px"
-      borderColor="border"
-      _last={{ borderBottomWidth: 0 }}
-    >
-      <Grid
-        templateColumns={{ base: '1fr', md: '120px 1fr' }}
-        gap={{ base: 2, md: 6 }}
-        alignItems="start"
+    <MotionBox variants={itemVariants} w="full">
+      <Card.Root
+        variant="outline"
+        size="sm"
+        _hover={{ borderColor: 'blue.400', shadow: 'sm' }}
+        transition="all 0.2s"
       >
-        {/* Column 1: Year Callout */}
-        <Text
-          fontSize={{ base: 'lg', md: 'xl' }}
-          fontWeight="bold"
-          color="primary"
-          opacity={0.6}
-          lineHeight="1.2"
-          mt={{ base: 0, md: 1 }}
-        >
-          {pub.year}
-        </Text>
-
-        {/* Column 2: Publication Details */}
-        <VStack align="start" gap={1}>
-          <Link
-            href={pub.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            _hover={{ textDecoration: 'none' }}
-          >
-            <HStack>
-              <Heading
-                as="h3"
-                size="md"
-                _hover={{ color: 'primary' }}
-                transition="color 0.2s"
+        <Card.Body>
+          <HStack align="start" gap={4}>
+            <Box
+              p={3}
+              bg="blue.50"
+              _dark={{ bg: 'blue.900/20' }}
+              color="blue.600"
+              rounded="lg"
+              display={{ base: 'none', sm: 'block' }}
+            >
+              <LuBookOpen size={24} />
+            </Box>
+            <VStack align="start" gap={2} flex="1">
+              <HStack wrap="wrap" gap={2}>
+                <Badge colorPalette="blue" variant="subtle">
+                  {pub.year}
+                </Badge>
+                <Text fontSize="xs" color="fg.muted" fontWeight="medium">
+                  {pub.journal}
+                </Text>
+              </HStack>
+              
+              <Link
+                href={pub.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                fontWeight="bold"
+                fontSize="lg"
+                lineHeight="short"
+                _hover={{ color: 'blue.600', textDecoration: 'none' }}
               >
                 {pub.title}
-              </Heading>
-              <Box as={FaExternalLinkAlt} color="gray.400" flexShrink={0} />
-            </HStack>
-          </Link>
-          <Text fontSize="sm" color="text" opacity={0.8}>
-            {pub.authors.join(', ')}
-          </Text>
-          <Text fontSize="sm" fontStyle="italic" color="text" opacity={0.6}>
-            {pub.journal}
-          </Text>
-        </VStack>
-      </Grid>
+                <Box as="span" display="inline-block" ml={1} verticalAlign="middle">
+                  <LuExternalLink size={14} />
+                </Box>
+              </Link>
+              
+              <Text fontSize="sm" color="fg.muted" lineClamp={2}>
+                {pub.authors.join(', ')}
+              </Text>
+            </VStack>
+          </HStack>
+        </Card.Body>
+      </Card.Root>
     </MotionBox>
   );
 };
@@ -98,42 +92,47 @@ export const RecentPublications = () => {
   }, []); // Empty dependency array means this only runs once
 
   return (
-    <MotionBox
-      py={16}
-      px={8}
-      bg="body"
-      {...sectionAnimation}
-      transition={{ ...sectionAnimation.transition, delay: 0.2 }}
-    >
-      <Container maxW="6xl">
-        <Heading as="h2" size="2xl" mb={10} textAlign="center">
-          Recent Publications
-        </Heading>
+    <Box py={{ base: 16, md: 24 }} bg="white">
+      <Container maxW="4xl">
+        <MotionBox
+          textAlign="center"
+          mb={12}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <Heading as="h2" size="3xl" mb={4} color="gray.900">
+            Recent Publications
+          </Heading>
+          <Text fontSize="xl" color="gray.600">
+            Latest research findings from our laboratory.
+          </Text>
+        </MotionBox>
+
         <MotionVStack
-          gap={0}
-          align="stretch"
+          gap={4}
           variants={containerVariants}
           initial="initial"
           whileInView="whileInView"
-          borderTopWidth="1px"
-          borderColor="border"
+          viewport={{ once: true }}
         >
           {recentPublications.map((pub) => (
             <PublicationItem key={pub.id} pub={pub} />
           ))}
         </MotionVStack>
-        <VStack mt={10}>
-          <MotionButton
+
+        <Box textAlign="center" mt={10}>
+          <Button
             asChild
-            colorScheme="blue"
             variant="outline"
             size="lg"
-            {...buttonHoverTap}
+            colorPalette="blue"
           >
             <NavLink to="/publications">See All Publications</NavLink>
-          </MotionButton>
-        </VStack>
+          </Button>
+        </Box>
       </Container>
-    </MotionBox>
+    </Box>
   );
 };

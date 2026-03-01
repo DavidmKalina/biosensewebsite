@@ -3,102 +3,115 @@
 import {
   Container,
   Heading,
-  Grid,
+  SimpleGrid,
   Image,
-  Card,
   Box,
   Text,
   VStack,
   Button,
 } from '@chakra-ui/react';
-import { Link as RouterLink, NavLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { contributors } from '../../data/sampleData';
 import { motion } from 'framer-motion';
+import { LuUsers } from 'react-icons/lu';
 import {
-  sectionAnimation,
   containerVariants,
   itemVariants,
-  cardHoverTap,
-  buttonHoverTap,
 } from './animationVariants';
 
-const CardRoot = Card.Root as React.ComponentType<
-  React.ComponentProps<typeof Card.Root> & React.ComponentProps<typeof RouterLink>
->;
 const MotionBox = motion(Box);
-const MotionGrid = motion(Grid);
-const MotionCardRoot = motion(CardRoot);
-const MotionButton = motion(Button);
+const MotionSimpleGrid = motion(SimpleGrid);
 
 export const TeamSnippet = () => {
-  const teamSnippet = contributors.filter((c) => c.id !== 'test').slice(0, 3);
+  const teamSnippet = contributors.filter((c) => c.id !== 'test' && c.role !== 'External Collaborator').slice(0, 4);
 
   return (
-    <MotionBox
-      py={16}
-      px={8}
-      bg="gray.50"
-      _dark={{ bg: 'gray.800' }}
-      {...sectionAnimation}
-      transition={{ ...sectionAnimation.transition, delay: 0.2 }}
-    >
-      <Container maxW="6xl">
-        <Heading as="h2" size="2xl" mb={10} textAlign="center">
-          Meet Our Team
-        </Heading>
-        <MotionGrid
-          templateColumns={{ base: '1fr', sm: '1fr 1fr', md: 'repeat(3, 1fr)' }}
-          gap={6}
+    <Box py={{ base: 16, md: 24 }} bg="gray.50" _dark={{ bg: 'gray.900' }}>
+      <Container maxW="7xl">
+        <MotionBox
+          textAlign="center"
+          mb={16}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <Heading as="h2" size="3xl" mb={4} color="blue.800">
+            Meet Our Team
+          </Heading>
+          <Text fontSize="xl" color="gray.600" maxW="2xl" mx="auto">
+            Dedicated researchers and students driving innovation.
+          </Text>
+        </MotionBox>
+
+        <MotionSimpleGrid
+          columns={{ base: 1, sm: 2, md: 4 }}
+          gap={8}
           variants={containerVariants}
           initial="initial"
           whileInView="whileInView"
+          viewport={{ once: true }}
         >
           {teamSnippet.map((contributor) => (
-            <MotionCardRoot
-              as={RouterLink}
-              to={`/contributor/${contributor.id}/bio`}
+            <MotionBox
               key={contributor.id}
-              _hover={{ textDecoration: 'none', boxShadow: 'lg' }}
-              variant="outline"
-              bg="card"
               variants={itemVariants}
-              {...cardHoverTap}
+              textAlign="center"
+              className="group"
             >
-              <Image
-                src={contributor.imageUrl}
-                alt={contributor.name}
-                height="240px"
-                objectFit="cover"
-                borderTopRadius="md"
-              />
-              <Card.Body textAlign="center" p={6}>
-                <Card.Title as="h3" fontSize="xl" fontWeight="bold">
-                  {contributor.name}
-                </Card.Title>
-                <Card.Description
-                  as={Text}
-                  fontSize="md"
-                  color="blue.600"
-                  mt={2}
+              <RouterLink to={`/contributor/${contributor.id}/bio`}>
+                <Box
+                  position="relative"
+                  mx="auto"
+                  mb={4}
+                  w="200px"
+                  h="200px"
+                  rounded="full"
+                  overflow="hidden"
+                  borderWidth="4px"
+                  borderColor="gray.100"
+                  _dark={{ borderColor: 'gray.700' }}
+                  transition="border-color 0.3s"
+                  _groupHover={{ borderColor: 'blue.500' }}
                 >
-                  {contributor.role}
-                </Card.Description>
-              </Card.Body>
-            </MotionCardRoot>
+                  <Image
+                    src={contributor.imageUrl}
+                    alt={contributor.name}
+                    w="100%"
+                    h="100%"
+                    objectFit="cover"
+                    transition="transform 0.5s"
+                    _groupHover={{ transform: 'scale(1.1)' }}
+                  />
+                </Box>
+                <VStack gap={1}>
+                  <Heading size="md" fontWeight="bold">
+                    {contributor.name}
+                  </Heading>
+                  <Text color="blue.600" fontWeight="medium">
+                    {contributor.role}
+                  </Text>
+                </VStack>
+              </RouterLink>
+            </MotionBox>
           ))}
-        </MotionGrid>
-        <VStack mt={10}>
-          <MotionButton
+        </MotionSimpleGrid>
+
+        <Box textAlign="center" mt={16}>
+          <Button
             asChild
-            colorScheme="blue"
-            variant="outline"
             size="lg"
-            {...buttonHoverTap}
+            variant="surface"
+            colorPalette="blue"
+            rounded="full"
+            px={8}
           >
-            <NavLink to="/team">See All Members</NavLink>
-          </MotionButton>
-        </VStack>
+            <RouterLink to="/team">
+              <LuUsers /> See All Members
+            </RouterLink>
+          </Button>
+        </Box>
       </Container>
-    </MotionBox>
+    </Box>
   );
 };

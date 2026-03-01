@@ -1,12 +1,12 @@
 // src/components/home/HeroSection.tsx
 
 import {
-  Flex,
   Heading,
   Button,
   Box,
   Text,
   VStack,
+  Container,
 } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -19,76 +19,101 @@ const MotionButton = motion(Button);
 
 export const HeroSection = () => {
   return (
-    <Flex
+    <Box
       as="section"
       w="100%"
-      minH={{ base: '70vh', md: '60vh' }}
-      direction="column" // Stacks items vertically
-      justify="space-between" // Pushes items to the edges (Top and Bottom)
-      align="center" // Centers items horizontally
-      py={16}
-      px={8}
+      minH={{ base: '80vh', md: '90vh' }}
       position="relative"
-      
-      // BACKGROUND CONFIGURATION
-      backgroundImage="url('/images/hero-bg.jpg')"
-      backgroundSize="cover"
-      backgroundPosition="bottom" // Anchors image to show the bottom (group members)
-      backgroundRepeat="no-repeat"
-      
-      color="white" 
+      overflow="hidden"
     >
-      {/* TOP CONTENT: Titles */}
-      <VStack gap={2} mt={4} textAlign="center" zIndex={1}>
-        <MotionHeading
-          as="h1"
-          size={{ base: '4xl', md: '6xl' }}
-          lineHeight="1.1"
-          color="white"
-          textShadow="0 4px 12px rgba(0,0,0,0.5)"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          BioSIS Lab
-        </MotionHeading>
-        
-        <MotionText
-          fontSize={{ base: 'xl', md: '3xl' }}
-          fontWeight="medium"
-          color="gray.100"
-          textShadow="0 2px 4px rgba(0,0,0,0.6)"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          Biosensing and Intelligence Systems Laboratory
-        </MotionText>
-      </VStack>
+      {/* Background Image with Overlay */}
+      <Box
+        position="absolute"
+        top="0"
+        left="0"
+        w="100%"
+        h="100%"
+        backgroundImage="url('/images/hero-bg.jpg')"
+        backgroundSize="cover"
+        backgroundPosition="center"
+        _after={{
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          w: '100%',
+          h: '100%',
+          bg: 'blackAlpha.300', // Reduced overlay opacity
+        }}
+        zIndex={0}
+      />
 
-      {/* BOTTOM CONTENT: Button */}
-      <MotionBox
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        mb={4}
+      <Container
+        maxW="7xl"
+        h="100%"
+        minH={{ base: '80vh', md: '90vh' }}
+        position="relative"
+        zIndex={1}
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        textAlign="center"
+        color="white"
+        py={20}
       >
-        <MotionButton
-          asChild
-          size="xl"
-          px={12}
-          bg="white"
-          color="blue.700"
-          fontWeight="bold"
-          fontSize="lg"
-          rounded="full"
-          _hover={{ bg: "gray.100", transform: "translateY(-2px)" }}
-          shadow="lg"
-          {...buttonHoverTap}
-        >
-          <NavLink to="/about">Learn More</NavLink>
-        </MotionButton>
-      </MotionBox>
-    </Flex>
+        <VStack gap={6} maxW="4xl">
+          <MotionHeading
+            as="h1"
+            size={{ base: '4xl', md: '6xl', lg: '7xl' }}
+            fontWeight="bold"
+            lineHeight="1.1"
+            letterSpacing="tight"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            BioSIS Lab
+          </MotionHeading>
+
+          <MotionText
+            fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
+            fontWeight="medium"
+            color="whiteAlpha.900"
+            maxW="2xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Pioneering Biosensing and Intelligence Systems for a Healthier Tomorrow
+          </MotionText>
+
+          <MotionBox
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            mt={8}
+          >
+            <MotionButton
+              asChild
+              size="xl"
+              px={10}
+              py={7}
+              bg="blue.600"
+              color="white"
+              fontSize="lg"
+              fontWeight="semibold"
+              rounded="full"
+              _hover={{ bg: "blue.500", transform: "translateY(-2px)", boxShadow: "xl" }}
+              _active={{ bg: "blue.700" }}
+              shadow="lg"
+              {...buttonHoverTap}
+            >
+              <NavLink to="/about">Discover Our Mission</NavLink>
+            </MotionButton>
+          </MotionBox>
+        </VStack>
+      </Container>
+    </Box>
   );
 };

@@ -1,48 +1,32 @@
-// src/components/home/HomeCTA.tsx
-
-import { Box, VStack, Heading, Text, HStack, Button } from '@chakra-ui/react';
-import { NavLink } from 'react-router-dom';
+import { Box, Container, Heading, Text, Button } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { buttonHoverTap } from './animationVariants';
 
-const MotionButton = motion(Button);
+const MotionBox = motion(Box);
 
 export const HomeCTA = () => {
   return (
-    <Box py={20} px={8} bg="blue.700" color="white">
-      <VStack as="section" maxW="6xl" mx="auto" gap={6} textAlign="center">
-        <Heading as="h2" size="2xl">
-          Join Our Mission
-        </Heading>
-        <Text fontSize="xl" maxW="2xl">
-          We are always looking for passionate collaborators, PhD students, and
-          partners to help us solve the next generation of scientific
-          challenges.
-        </Text>
-        <HStack gap={6} mt={4}>
-          <MotionButton
-            asChild
-            colorScheme="whiteAlpha"
-            bg="white"
-            color="blue.700"
-            size="lg"
-            px={8}
-            {...buttonHoverTap}
-          >
-            <NavLink to="/get-involved">Get Involved</NavLink>
-          </MotionButton>
-          <MotionButton
-            asChild
-            variant="outline"
-            colorScheme="whiteAlpha"
-            size="lg"
-            px={8}
-            {...buttonHoverTap}
-          >
-            <NavLink to="/about">Our Research</NavLink>
-          </MotionButton>
-        </HStack>
-      </VStack>
+    <Box bg="blue.900" py={24} color="white" position="relative" overflow="hidden">
+      {/* Decorative background element */}
+      <Box position="absolute" top="0" left="0" w="full" h="full" opacity="0.1" bgImage="radial-gradient(circle at 70% 50%, white 0%, transparent 50%)" pointerEvents="none" />
+      
+      <Container maxW="4xl" position="relative" zIndex={1}>
+        <MotionBox
+          textAlign="center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <Heading size="3xl" mb={6} letterSpacing="tight">Ready to Collaborate?</Heading>
+          <Text fontSize="xl" mb={10} opacity={0.9} maxW="2xl" mx="auto">
+            Join us in our mission to advance biosensing technology and improve global health outcomes.
+          </Text>
+          <Button asChild size="xl" bg="white" color="blue.900" _hover={{ bg: "gray.100", transform: "scale(1.05)" }} rounded="full" px={10}>
+            <RouterLink to="/contact">Contact Us</RouterLink>
+          </Button>
+        </MotionBox>
+      </Container>
     </Box>
   );
 };
