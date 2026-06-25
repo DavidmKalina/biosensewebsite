@@ -77,7 +77,7 @@ export const contributors: Contributor[] = [
     id: 'david-kalina',
     name: 'David Kalina',
     role: 'PhD Candidate',
-    bio: "David Kalina is a PhD candidate at the University of Canberra, Australia. He holds a Bachelor of Engineering (Honours) in Network and Software Engineering from the University of Canberra. His research explores Virtual Reality–based acute pain management and the integration of biosensors to develop predictive, personalised approaches to drug-free pain relief.\n\nBefore commencing his PhD, David worked as a nurse call systems programmer, deploying custom solutions for Advanced Care and Vitalcall systems across rural hospitals and aged care facilities. Working closely with clinical staff and diverse patient populations shaped his interest in building practical, patient-focused healthcare technologies.",
+    bio: "David Kalina is a PhD candidate at the University of Canberra. He holds a Bachelor of Engineering (Honours) in Network and Software Engineering from the University of Canberra. His research explores Virtual Reality–based acute pain management and the integration of biosensors to develop predictive, personalised approaches to drug-free pain relief.\n\nBefore commencing his PhD, David worked as a nurse call systems programmer, deploying custom solutions for Advanced Care and Vitalcall systems across rural hospitals and aged care facilities. Working closely with clinical staff and diverse patient populations shaped his interest in building practical, patient-focused healthcare technologies.",
     imageUrl: '',
     contributorApiId: '',
   },
