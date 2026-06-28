@@ -31,7 +31,7 @@ export const HeroSection = () => {
     <Box
       as="section"
       w="100%"
-      minH={{ base: '80vh', md: '90vh' }}
+      minH={{ base: '56vh', md: '90vh' }}
       position="relative"
       overflow="hidden"
     >
@@ -60,7 +60,7 @@ export const HeroSection = () => {
       <Container
         maxW="7xl"
         h="100%"
-        minH={{ base: '80vh', md: '90vh' }}
+        minH={{ base: '56vh', md: '90vh' }}
         position="relative"
         zIndex={1}
         display="flex"
@@ -69,7 +69,7 @@ export const HeroSection = () => {
         alignItems="center"
         textAlign="center"
         color="white"
-        py={20}
+        py={{ base: 12, md: 20 }}
       >
         <VStack gap={6} maxW="4xl">
           <MotionHeading

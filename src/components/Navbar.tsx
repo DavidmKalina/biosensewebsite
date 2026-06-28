@@ -191,7 +191,6 @@ const Navbar = () => {
   const { open, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef<HTMLButtonElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
-  const projects = useProjects();
   const categories = useCategories();
 
   useEffect(() => {
@@ -354,50 +353,23 @@ const Navbar = () => {
                   <Text fontWeight="bold" color="gray.500" mb={2} fontSize="xs" textTransform="uppercase">
                     Research Categories
                   </Text>
-                  <VStack align="stretch" gap={3}>
-                    {categories.map((category) => {
-                      const categoryProjects = projects.filter((p) => p.categoryId === category.id);
-                      return (
-                        <Box key={category.id}>
-                          <Link
-                            asChild
-                            _hover={{ textDecoration: 'none', bg: 'gray.50' }}
-                            borderRadius="md"
-                            p={2}
-                            display="block"
-                          >
-                            <NavLink to={`/projects/${category.id}`} onClick={onClose}>
-                              <Text fontWeight="bold" fontSize="sm" color="blue.700">
-                                {category.title}
-                              </Text>
-                            </NavLink>
-                          </Link>
-                          <VStack align="stretch" gap={1} pl={3}>
-                            {categoryProjects.length === 0 ? (
-                              <Text fontSize="xs" color="gray.400" fontStyle="italic" px={2} py={1}>
-                                Coming soon
-                              </Text>
-                            ) : (
-                              categoryProjects.map((project) => (
-                                <Link
-                                  asChild
-                                  key={project.id}
-                                  _hover={{ textDecoration: 'none', bg: 'gray.50' }}
-                                  borderRadius="md"
-                                  p={2}
-                                >
-                                  <NavLink to={`/project/${project.id}`} onClick={onClose}>
-                                    <Text fontSize="sm" color="gray.700">
-                                      {project.title}
-                                    </Text>
-                                  </NavLink>
-                                </Link>
-                              ))
-                            )}
-                          </VStack>
-                        </Box>
-                      );
-                    })}
+                  <VStack align="stretch" gap={1}>
+                    {categories.map((category) => (
+                      <Link
+                        key={category.id}
+                        asChild
+                        _hover={{ textDecoration: 'none', bg: 'gray.50' }}
+                        borderRadius="md"
+                        p={2}
+                        display="block"
+                      >
+                        <NavLink to={`/projects/${category.id}`} onClick={onClose}>
+                          <Text fontWeight="bold" fontSize="sm" color="blue.700">
+                            {category.title}
+                          </Text>
+                        </NavLink>
+                      </Link>
+                    ))}
                   </VStack>
                   <Button asChild variant="outline" colorPalette="blue" size="sm" width="full" mt={3}>
                     <NavLink to="/projects" onClick={onClose}>View All Projects</NavLink>
