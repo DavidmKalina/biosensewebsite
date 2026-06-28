@@ -19,8 +19,10 @@ dist-ssr
 studio/.env
 studio/dist
 
-# Claude Code
+# Claude Code / AI context dumps (do not commit)
 CLAUDE.md
+filetree.txt
+llms-full.txt
 
 # Build artifacts / caches
 *.tsbuildinfo
