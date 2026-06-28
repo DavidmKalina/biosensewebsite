@@ -284,8 +284,11 @@ const Navbar = () => {
             display={{ base: 'flex', md: 'none' }}
             onClick={onOpen}
             variant="ghost"
-            color="gray.900"
-            _dark={{ color: "gray.900" }}
+            bg="transparent"
+            color="gray.800"
+            _hover={{ bg: 'gray.100', color: 'blue.600' }}
+            _active={{ bg: 'gray.200' }}
+            _dark={{ color: 'gray.800', bg: 'transparent' }}
             _focus={{ outline: 'none', boxShadow: 'none' }}
             _focusVisible={{ outline: 'none', boxShadow: 'none' }}
             aria-label="Open navigation menu"
@@ -305,9 +308,21 @@ const Navbar = () => {
       >
         <Drawer.Backdrop />
         <Drawer.Positioner>
-          <Drawer.Content>
+          <Drawer.Content bg="white" _dark={{ bg: 'white' }}>
             <Drawer.CloseTrigger asChild>
-                <IconButton variant="ghost" size="sm" position="absolute" top="4" right="4">
+                <IconButton
+                    variant="ghost"
+                    size="sm"
+                    position="absolute"
+                    top="4"
+                    right="4"
+                    bg="transparent"
+                    color="gray.800"
+                    _hover={{ bg: 'gray.100', color: 'blue.600' }}
+                    _active={{ bg: 'gray.200' }}
+                    _dark={{ color: 'gray.800', bg: 'transparent' }}
+                    aria-label="Close navigation menu"
+                >
                     <HiX />
                 </IconButton>
             </Drawer.CloseTrigger>
@@ -321,11 +336,11 @@ const Navbar = () => {
                         Navigation
                     </Text>
                     <VStack align="stretch" gap={1}>
-                        <Button asChild variant="ghost" justifyContent="flex-start" size="lg">
+                        <Button asChild variant="ghost" justifyContent="flex-start" size="lg" color="gray.800" _hover={{ bg: 'gray.100', color: 'blue.600' }}>
                             <NavLink to="/" onClick={onClose}>Home</NavLink>
                         </Button>
                         {navLinks.map((link) => (
-                        <Button key={link.label} asChild variant="ghost" justifyContent="flex-start" size="lg">
+                        <Button key={link.label} asChild variant="ghost" justifyContent="flex-start" size="lg" color="gray.800" _hover={{ bg: 'gray.100', color: 'blue.600' }}>
                             <NavLink to={link.path} onClick={onClose}>
                                 {link.label}
                             </NavLink>
@@ -390,7 +405,15 @@ const Navbar = () => {
                 </Box>
                 
                 <Box p={4} mt="auto">
-                    <Button asChild width="full" colorPalette="blue" size="lg">
+                    <Button
+                        asChild
+                        width="full"
+                        colorPalette="blue"
+                        variant="solid"
+                        size="lg"
+                        color="white"
+                        _hover={{ bg: 'blue.600', color: 'white' }}
+                    >
                         <NavLink to="/contact" onClick={onClose}>Contact Us</NavLink>
                     </Button>
                 </Box>
