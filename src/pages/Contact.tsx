@@ -1,12 +1,23 @@
 import { Box, Container, Heading, Text, VStack, Link, Icon, HStack } from '@chakra-ui/react';
 import { LuMail } from 'react-icons/lu';
 import { motion } from 'framer-motion';
+import Seo from '../components/Seo';
+import { breadcrumbJsonLd } from '../lib/seo';
 
 const MotionContainer = motion(Container);
 
 const Contact = () => {
   return (
     <Box bg="bg.subtle" minH="100vh" py={{ base: 12, md: 20 }}>
+      <Seo
+        title="Contact"
+        path="/contact"
+        description="Contact BioSIS Lab at the University of Canberra. Get in touch about research collaborations, PhD and student opportunities, or partnership enquiries."
+        jsonLd={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Contact', path: '/contact' },
+        ])}
+      />
       <MotionContainer
         maxW="2xl"
         initial={{ opacity: 0, y: 20 }}

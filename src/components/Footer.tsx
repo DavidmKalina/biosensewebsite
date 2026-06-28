@@ -137,7 +137,7 @@ const Footer = () => {
                 </IconButton>
               </Link>
               <Link
-                href="httpss://twitter.com"
+                href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"

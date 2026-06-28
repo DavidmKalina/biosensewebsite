@@ -1,0 +1,5 @@
+# Cloudflare Pages SPA fallback.
+# Pre-rendered routes are served as static files first; any path without a
+# matching file (e.g. a Sanity item added after the last build) falls back to
+# the app shell, which then renders client-side.
+/*    /index.html    200

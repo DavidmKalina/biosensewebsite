@@ -17,6 +17,8 @@ import { motion } from 'framer-motion';
 import { LuArrowRight, LuArrowLeft, LuFolderOpen } from 'react-icons/lu';
 import { useCategories, useProjects } from '../hooks/useContent';
 import { containerVariants, itemVariants } from '../components/home/animationVariants';
+import Seo from '../components/Seo';
+import { breadcrumbJsonLd } from '../lib/seo';
 
 const MotionBox = motion(Box);
 const MotionSimpleGrid = motion(SimpleGrid);
@@ -256,6 +258,27 @@ const Projects = () => {
 
   return (
     <Box bg="bg.subtle" minH="100vh" py={{ base: 16, md: 20 }}>
+      <Seo
+        title={activeCategory ? `${activeCategory.title} Research` : 'Research Projects'}
+        path={activeCategory ? `/projects/${activeCategory.id}` : '/projects'}
+        description={
+          activeCategory
+            ? `${activeCategory.description} Explore ${activeCategory.title} research projects at BioSIS Lab, University of Canberra.`
+            : 'Explore the research projects of BioSIS Lab at the University of Canberra, spanning objective pain assessment, dementia detection, gait and balance, and VR based pain relief.'
+        }
+        jsonLd={breadcrumbJsonLd(
+          activeCategory
+            ? [
+                { name: 'Home', path: '/' },
+                { name: 'Projects', path: '/projects' },
+                { name: activeCategory.title, path: `/projects/${activeCategory.id}` },
+              ]
+            : [
+                { name: 'Home', path: '/' },
+                { name: 'Projects', path: '/projects' },
+              ]
+        )}
+      />
       <Container maxW="7xl">
         <MotionBox
           textAlign="center"

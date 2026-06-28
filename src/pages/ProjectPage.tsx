@@ -3,6 +3,8 @@ import { Container, Heading, Box, Image, SimpleGrid, Card, Badge, VStack, HStack
 import { useProjects, useContributors } from '../hooks/useContent';
 import { RichText } from '../components/RichText';
 import { LuArrowRight, LuUser } from 'react-icons/lu';
+import Seo from '../components/Seo';
+import { projectJsonLd, breadcrumbJsonLd } from '../lib/seo';
 
 const ProjectPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,15 +15,37 @@ const ProjectPage = () => {
   if (!project) {
     return (
       <Container maxW="7xl" mx="auto" py={8}>
+        <Seo title="Project not found" path={`/project/${id ?? ''}`} noindex />
         <Text>Project not found</Text>
       </Container>
     );
   }
 
   const projectContributors = contributors.filter(c => project.contributors.includes(c.id));
+  const projectPath = `/project/${project.id}`;
 
   return (
     <Box bg="bg.subtle" minH="100vh">
+      <Seo
+        title={project.title}
+        path={projectPath}
+        description={project.shortDescription}
+        image={project.bannerUrl || project.imageUrl}
+        type="article"
+        jsonLd={[
+          projectJsonLd({
+            title: project.title,
+            description: project.shortDescription,
+            image: project.bannerUrl || project.imageUrl,
+            path: projectPath,
+          }),
+          breadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Projects', path: '/projects' },
+            { name: project.title, path: projectPath },
+          ]),
+        ]}
+      />
       {/* Updated Banner Section:
         1. Simplified width to 100% to avoid horizontal scroll issues.
         2. Reduced height to 'shrink' the visual impact.

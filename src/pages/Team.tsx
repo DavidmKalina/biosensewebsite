@@ -14,6 +14,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useContributors } from '../hooks/useContent';
 import { LuArrowRight, LuUser } from 'react-icons/lu';
+import Seo from '../components/Seo';
+import { breadcrumbJsonLd } from '../lib/seo';
 
 const MotionBox = motion(Box);
 const MotionCardRoot = motion(Card.Root);
@@ -43,6 +45,15 @@ const Team: React.FC = () => {
 
   return (
     <Box bg="gray.50" _dark={{ bg: 'gray.900' }} minH="100vh" py={{ base: 12, md: 20 }}>
+      <Seo
+        title="Our Team"
+        path="/team"
+        description="Meet the researchers, academics and PhD candidates of BioSIS Lab at the University of Canberra, working across biosensing, biomedical signal processing and machine learning for healthcare."
+        jsonLd={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Team', path: '/team' },
+        ])}
+      />
       <Container maxW="7xl">
         <VStack gap={6} textAlign="center" mb={12}>
           <MotionBox

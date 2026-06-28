@@ -14,6 +14,8 @@ import {
 } from '@chakra-ui/react';
 import { usePublications } from '../hooks/useContent';
 import { LuExternalLink, LuBookOpen, LuSearch } from 'react-icons/lu';
+import Seo from '../components/Seo';
+import { breadcrumbJsonLd, scholarlyArticleJsonLd } from '../lib/seo';
 import { motion, AnimatePresence } from 'framer-motion'; // Added AnimatePresence
 
 const MotionContainer = motion(Container);
@@ -57,6 +59,18 @@ const Publications = () => {
 
   return (
     <Box bg="bg.subtle" minH="100vh" py={{ base: 12, md: 20 }}>
+      <Seo
+        title="Publications"
+        path="/publications"
+        description="Peer reviewed publications from BioSIS Lab at the University of Canberra, covering objective pain assessment, dementia detection, Parkinson's disease, biomedical signal processing and machine learning in healthcare."
+        jsonLd={[
+          breadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Publications', path: '/publications' },
+          ]),
+          ...sortedPublications.map((pub) => scholarlyArticleJsonLd(pub)),
+        ]}
+      />
       <MotionContainer
         maxW="5xl"
         variants={containerVariants}

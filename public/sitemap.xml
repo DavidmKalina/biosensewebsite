@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Baseline sitemap. `npm run build` (vite-react-ssg) regenerates this file in
+  the build output from the pages that were actually pre-rendered, so this
+  static copy only needs to be touched if you add routes and deploy without a
+  full SSG build.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://biosislab.au/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://biosislab.au/about</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://biosislab.au/team</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://biosislab.au/publications</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://biosislab.au/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://biosislab.au/projects</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://biosislab.au/projects/pain</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://biosislab.au/projects/ageing</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://biosislab.au/projects/gait-balance</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://biosislab.au/project/ai-pain-detection</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://biosislab.au/project/dementia-detection</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://biosislab.au/project/vr-pain-management</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://biosislab.au/contributor/raul-fernandez-rojas/bio</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://biosislab.au/contributor/maryam-ghahramani/bio</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://biosislab.au/contributor/sumair-aziz/bio</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://biosislab.au/contributor/maryam-sousani/bio</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://biosislab.au/contributor/umar-khan/bio</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://biosislab.au/contributor/zongyi-jiang/bio</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://biosislab.au/contributor/abishek-shrestha/bio</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://biosislab.au/contributor/farhan-rashid/bio</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://biosislab.au/contributor/hamza-shabbir-minhas/bio</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://biosislab.au/contributor/david-kalina/bio</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+</urlset>

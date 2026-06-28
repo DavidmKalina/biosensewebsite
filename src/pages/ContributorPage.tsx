@@ -18,6 +18,8 @@ import {
 import { useEffect, useMemo } from 'react';
 import { useContributors, useProjects } from '../hooks/useContent';
 import { RichText } from '../components/RichText';
+import Seo from '../components/Seo';
+import { personJsonLd, breadcrumbJsonLd } from '../lib/seo';
 import ContributorResearchPapersTab from '../components/contributor/ContributorResearchPapersTab';
 import { motion } from 'framer-motion';
 import { LuUser, LuFileText, LuGraduationCap, LuArrowLeft, LuArrowRight } from 'react-icons/lu';
@@ -56,8 +58,35 @@ const ContributorPage = () => {
   const activeTab = tab || 'bio';
   const hasResearchPapers = false; // Boolean(contributor.contributorApiId);
 
+  const bioText = typeof contributor.bio === 'string' ? contributor.bio : '';
+  const metaDescription = bioText
+    ? bioText.replace(/\s+/g, ' ').trim().slice(0, 200)
+    : `${contributor.name}, ${contributor.role ?? 'researcher'} at BioSIS Lab, University of Canberra.`;
+  const contributorPath = `/contributor/${contributor.id}/bio`;
+
   return (
     <Box bg="bg.subtle" minH="100vh" py={{ base: 8, md: 12 }} color="fg">
+      <Seo
+        title={contributor.name}
+        path={contributorPath}
+        description={metaDescription}
+        image={contributor.imageUrl}
+        type="profile"
+        jsonLd={[
+          personJsonLd({
+            name: contributor.name,
+            role: contributor.role,
+            description: metaDescription,
+            image: contributor.imageUrl,
+            path: contributorPath,
+          }),
+          breadcrumbJsonLd([
+            { name: 'Home', path: '/' },
+            { name: 'Team', path: '/team' },
+            { name: contributor.name, path: contributorPath },
+          ]),
+        ]}
+      />
       <MotionContainer
         maxW="7xl"
         initial={{ opacity: 0, y: 20 }}

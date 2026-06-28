@@ -47,6 +47,10 @@ const previewClient: SanityClient | null = previewToken
       // unpublished edits on top of published content.
       useCdn: false,
       perspective: 'drafts',
+      // This token is an intentional, read-only viewer token bundled for
+      // preview mode (see SANITY_SETUP.md), so suppress the browser-token
+      // warning it would otherwise log on every load.
+      ignoreBrowserTokenWarning: true,
     })
   : null
 

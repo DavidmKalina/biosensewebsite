@@ -2,6 +2,7 @@ import {
   Box,
   Flex,
   HStack,
+  Image,
   Link,
   IconButton,
   useDisclosure,
@@ -231,7 +232,14 @@ const Navbar = () => {
             outline="none"
           >
             <NavLink to="/">
-              <HStack gap={2}>
+              <HStack gap={2.5}>
+                <Image
+                  src="/images/biosis-logo-mark.png"
+                  alt=""
+                  aria-hidden="true"
+                  h={{ base: '32px', md: '40px' }}
+                  w="auto"
+                />
                 <Text fontSize="2xl" fontWeight="bold" color="blue.700" letterSpacing="tight" fontFamily="heading">
                   BioSIS Lab
                 </Text>

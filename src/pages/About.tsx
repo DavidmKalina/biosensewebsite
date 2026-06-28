@@ -20,6 +20,8 @@ import { motion } from 'framer-motion';
 import { LuCheck, LuMapPin, LuUsers, LuTarget, LuActivity } from 'react-icons/lu';
 import { useAbout, usePartners } from '../hooks/useContent';
 import { RichText } from '../components/RichText';
+import Seo from '../components/Seo';
+import { breadcrumbJsonLd } from '../lib/seo';
 
 const MotionContainer = motion(Container);
 
@@ -65,6 +67,15 @@ const About: React.FC = () => {
 
   return (
     <Box bg="bg.subtle" minH="100vh" py={{ base: 12, md: 20 }}>
+      <Seo
+        title="About"
+        path="/about"
+        description="BioSIS Lab is a multidisciplinary research group at the University of Canberra advancing biosensing and intelligent systems. Learn about our mission, our team and our research partners."
+        jsonLd={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'About', path: '/about' },
+        ])}
+      />
       <MotionContainer
         maxW="4xl"
         initial={{ opacity: 0, y: 20 }}
