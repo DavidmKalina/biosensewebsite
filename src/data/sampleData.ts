@@ -81,21 +81,6 @@ export const contributors: Contributor[] = [
     imageUrl: '',
     contributorApiId: '',
   },
-  {
-    id: 'john-smith',
-    name: 'Dr. Adam Smith',
-    role: 'External Collaborator',
-    bio: '',
-    imageUrl: '',
-    contributorApiId: '',
-  },
-  {
-    id: 'test',
-    name: 'Test Researcher',
-    role: 'Test Scientist',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus vehicula sodales. Nulla aliquam ligula enim, et vehicula sapien tempor eu. Donec euismod tempus diam ut mollis. Nullam sit amet nisi in quam porta rhoncus id vel ante. Aliquam gravida nisi ut risus iaculis egestas. Etiam consequat ut mauris et interdum. Fusce justo massa, dictum vel faucibus vel, finibus eu justo. Mauris vel nunc ac justo laoreet fermentum. Fusce id euismod mi, a sollicitudin felis. Donec sed venenatis libero. Nam imperdiet ac mi non ullamcorper. Etiam eget mauris sed felis dignissim dictum sed eu metus. Donec consequat, sem vitae tempus fringilla, nibh dolor fermentum tellus, id pellentesque augue metus ac risus.',
-    imageUrl: '/images/contributors/maria-rodriguez.jpg',
-  },
 ];
 
 // Research categories and their subcategories.
