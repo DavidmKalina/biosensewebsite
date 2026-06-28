@@ -116,7 +116,7 @@ const About: React.FC = () => {
             </Box>
             <Box
               bg="white"
-              p={8}
+              p={{ base: 5, md: 8 }}
               rounded="2xl"
               shadow="sm"
               borderWidth="1px"

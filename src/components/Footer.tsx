@@ -11,8 +11,10 @@ import {
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { useCategories } from '../hooks/useContent';
 
 const Footer = () => {
+  const categories = useCategories();
   return (
     <Box
       as="footer"
@@ -52,20 +54,15 @@ const Footer = () => {
             <Text fontWeight="bold" fontSize="lg" color="text">
               Research
             </Text>
-            <Link asChild _hover={{ color: 'primary' }}>
-              <RouterLink to="/project/ai-pain-detection">
-                AI Pain Detection
-              </RouterLink>
-            </Link>
-            <Link asChild _hover={{ color: 'primary' }}>
-              <RouterLink to="/project/dementia-detection">
-                Dementia Detection
-              </RouterLink>
-            </Link>
-            <Link asChild _hover={{ color: 'primary' }}>
-              <RouterLink to="/project/vr-pain-management">
-                VR Pain Management
-              </RouterLink>
+            {categories.map((category) => (
+              <Link key={category.id} asChild _hover={{ color: 'primary' }}>
+                <RouterLink to={`/projects/${category.id}`}>
+                  {category.title}
+                </RouterLink>
+              </Link>
+            ))}
+            <Link asChild _hover={{ color: 'primary' }} fontWeight="medium">
+              <RouterLink to="/projects">All Projects</RouterLink>
             </Link>
           </VStack>
 
@@ -162,13 +159,10 @@ const Footer = () => {
           pt={6}
           direction={{ base: 'column', md: 'row' }}
           align="center"
-          justify="space-between"
+          justify="center"
         >
-          <Text fontSize="sm">
+          <Text fontSize="sm" textAlign="center">
             © {new Date().getFullYear()} BioSIS Lab | University of Canberra
-          </Text>
-          <Text fontSize="sm" mt={{ base: 2, md: 0 }}>
-            CRICOS Provider No. 00212K
           </Text>
         </Flex>
       </Container>

@@ -17,8 +17,8 @@ export const Partners = () => {
   const partners = usePartners();
   return (
     <MotionBox
-      py={16}
-      px={8}
+      py={{ base: 12, md: 16 }}
+      px={{ base: 4, md: 8 }}
       {...sectionAnimation}
       transition={{ ...sectionAnimation.transition, delay: 0.1 }}
     >

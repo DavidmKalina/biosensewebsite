@@ -47,7 +47,7 @@ function Layout() {
           <ScrollToTop />
           <PreviewBanner />
           <Navbar />
-          <Box as="main" flex="1" minW={'100vw'} mt={16}>
+          <Box as="main" flex="1" w="100%" maxW="100%" overflowX="hidden" mt={16}>
             <Outlet />
           </Box>
           <Footer />

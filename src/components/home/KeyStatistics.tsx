@@ -31,7 +31,7 @@ export const KeyStatistics = ({
   ];
 
   return (
-    <MotionBox py={16} px={8} {...sectionAnimation}>
+    <MotionBox py={{ base: 12, md: 16 }} px={{ base: 4, md: 8 }} {...sectionAnimation}>
       <Container maxW="6xl">
         <StatGroup as={SimpleGrid} columns={{ base: 1, md: 3 }} gap={8}>
           {stats.map((stat) => (

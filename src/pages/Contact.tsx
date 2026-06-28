@@ -24,17 +24,17 @@ const Contact = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <VStack gap={8} textAlign="center" bg="bg.panel" p={10} borderRadius="2xl" boxShadow="sm" borderWidth="1px" borderColor="border.subtle">
-          <Heading size="3xl" letterSpacing="tight">Contact Us</Heading>
-          <Text fontSize="xl" color="fg.muted">
+        <VStack gap={8} textAlign="center" bg="bg.panel" p={{ base: 6, md: 10 }} borderRadius="2xl" boxShadow="sm" borderWidth="1px" borderColor="border.subtle">
+          <Heading size={{ base: '2xl', md: '3xl' }} letterSpacing="tight">Contact Us</Heading>
+          <Text fontSize={{ base: 'lg', md: 'xl' }} color="fg.muted">
             Interested in our research or want to get involved? Reach out to us directly.
           </Text>
-          
-          <VStack gap={4} mt={4}>
+
+          <VStack gap={4} mt={4} w="full">
             <Heading size="md">Raul Fernandez Rojas</Heading>
-            <HStack gap={2} color="blue.600" fontSize="lg">
-                <Icon as={LuMail} />
-                <Link href="mailto:Raul.FernandezRojas@canberra.edu.au" fontWeight="medium">
+            <HStack gap={2} color="blue.600" fontSize={{ base: 'sm', md: 'lg' }} flexWrap="wrap" justify="center" maxW="full">
+                <Icon as={LuMail} flexShrink={0} />
+                <Link href="mailto:Raul.FernandezRojas@canberra.edu.au" fontWeight="medium" wordBreak="break-all">
                     Raul.FernandezRojas@canberra.edu.au
                 </Link>
             </HStack>

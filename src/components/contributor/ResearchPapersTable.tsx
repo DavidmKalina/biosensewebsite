@@ -89,8 +89,8 @@ const ResearchPapersTable: React.FC<ResearchPapersTableProps> = ({ contributorAp
   if (!preparedData.length) return <Text>No research papers available yet.</Text>;
 
   return (
-    <Box width="100%" minWidth="400px" maxH="400px" overflowY="auto" mt={1}>
-      <Table.Root variant="line" size="sm">
+    <Box width="100%" maxW="100%" maxH="400px" overflowX="auto" overflowY="auto" mt={1}>
+      <Table.Root variant="line" size="sm" minW="400px">
         <Table.Header>
           <Table.Row>
             {table.getHeaderGroups().map(headerGroup =>
