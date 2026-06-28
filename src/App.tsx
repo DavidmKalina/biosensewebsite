@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Home from './pages/Home';
+import Projects from './pages/Projects';
 import ProjectPage from './pages/ProjectPage';
 import ContributorPage from './pages/ContributorPage';
 import About from './pages/About';
@@ -32,6 +33,8 @@ function App() {
             <Box as="main" flex="1" minW={"100vw"} mt={16}>
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/projects/:categoryId" element={<Projects />} />
                 <Route path="/project/:id" element={<ProjectPage />} />
                 <Route path="/contributor/:id" element={<Navigate relative="route" to="bio" replace />} />
                 <Route path="/contributor/:id/:tab" element={<ContributorPage />} />

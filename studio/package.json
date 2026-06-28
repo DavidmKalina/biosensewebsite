@@ -1,0 +1,30 @@
+{
+  "name": "biosis-studio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Sanity Studio for the BioSIS Lab website",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "migrate": "tsx scripts/migrate.ts"
+  },
+  "dependencies": {
+    "@sanity/client": "^6.21.3",
+    "@sanity/vision": "^3.57.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sanity": "^3.57.0",
+    "styled-components": "^6.1.15"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "^4.0.0",
+    "@types/react": "^18.3.5",
+    "dotenv": "^16.4.5",
+    "eslint": "^9.9.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.5.4"
+  }
+}

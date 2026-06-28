@@ -10,7 +10,6 @@ import {
   Container,
   Text,
   Popover, // Use Popover for the mega menu
-  Image,
   Button,
   Portal,
   SimpleGrid,
@@ -18,7 +17,7 @@ import {
 import { NavLink } from 'react-router-dom';
 import { HiOutlineMenu, HiChevronDown, HiX } from 'react-icons/hi';
 import React, { useState, useEffect } from 'react';
-import { projects } from '../data/sampleData';
+import { projects, categories } from '../data/sampleData';
 
 // Updated navLinks, "Home" is covered by the brand, "Projects" is a separate menu
 const navLinks = [
@@ -110,51 +109,68 @@ const ProjectMegaMenu = () => {
             <Popover.Body p={0}>
               <Box bg="gray.50" p={5} borderBottomWidth="1px" borderColor="gray.100">
                 <Text fontWeight="bold" color="gray.700" fontSize="sm" textTransform="uppercase" letterSpacing="wider">
-                  Research Projects
+                  Research Categories
                 </Text>
               </Box>
 
-              <SimpleGrid columns={2} gap={2} p={4}>
-                {projects.map((project) => (
-                  <Link
-                    asChild
-                    key={project.id}
-                    _hover={{ textDecoration: 'none' }}
-                  >
-                    <NavLink to={`/project/${project.id}`}>
-                      <HStack 
-                        gap={4} 
-                        align="start" 
-                        p={3} 
-                        borderRadius="xl" 
-                        _hover={{ bg: 'blue.50' }} 
-                        transition="all 0.2s ease-in-out"
-                      >
-                      <Image
-                        src={project.imageUrl}
-                        alt={project.title}
-                        boxSize="56px"
-                        objectFit="cover"
-                        borderRadius="lg"
-                        shadow="sm"
-                      />
-                      <VStack align="start" gap={1}>
-                        <Text fontWeight="bold" fontSize="sm" color="gray.800" lineClamp={1}>
-                          {project.title}
+              <SimpleGrid columns={3} gap={2} p={4}>
+                {categories.map((category) => {
+                  const categoryProjects = projects.filter((p) => p.categoryId === category.id);
+                  return (
+                    <VStack key={category.id} align="stretch" gap={1}>
+                      <Link asChild _hover={{ textDecoration: 'none' }}>
+                        <NavLink to={`/projects/${category.id}`}>
+                          <Text
+                            fontWeight="bold"
+                            fontSize="sm"
+                            color="blue.700"
+                            px={3}
+                            py={2}
+                            borderRadius="lg"
+                            _hover={{ bg: 'blue.50' }}
+                            transition="all 0.2s ease-in-out"
+                          >
+                            {category.title}
+                          </Text>
+                        </NavLink>
+                      </Link>
+
+                      {categoryProjects.length === 0 ? (
+                        <Text fontSize="xs" color="gray.400" fontStyle="italic" px={3} py={1}>
+                          Coming soon
                         </Text>
-                        <Text fontSize="xs" color="gray.500" lineClamp={2} lineHeight="1.4">
-                          {project.shortDescription}
-                        </Text>
-                      </VStack>
-                    </HStack>
-                  </NavLink>
-                </Link>
-              ))}
+                      ) : (
+                        categoryProjects.map((project) => (
+                          <Link
+                            asChild
+                            key={project.id}
+                            _hover={{ textDecoration: 'none' }}
+                          >
+                            <NavLink to={`/project/${project.id}`}>
+                              <Text
+                                fontSize="xs"
+                                color="gray.600"
+                                lineHeight="1.4"
+                                px={3}
+                                py={1.5}
+                                borderRadius="lg"
+                                _hover={{ bg: 'blue.50', color: 'blue.700' }}
+                                transition="all 0.2s ease-in-out"
+                              >
+                                {project.title}
+                              </Text>
+                            </NavLink>
+                          </Link>
+                        ))
+                      )}
+                    </VStack>
+                  );
+                })}
               </SimpleGrid>
-              
+
               <Box p={3} bg="gray.50" borderTopWidth="1px" borderColor="gray.100" textAlign="center">
                 <Button asChild variant="ghost" size="sm" colorPalette="blue" _hover={{ bg: 'blue.100' }}>
-                  <NavLink to="/about">View Research Areas</NavLink>
+                  <NavLink to="/projects">View All Projects</NavLink>
                 </Button>
               </Box>
             </Popover.Body>
@@ -306,28 +322,59 @@ const Navbar = () => {
                     </VStack>
                 </Box>
                 
-                {/* Projects section for mobile */}
+                {/* Projects section for mobile, grouped by category */}
                 <Box p={4} borderTopWidth="1px" borderColor="gray.100">
                   <Text fontWeight="bold" color="gray.500" mb={2} fontSize="xs" textTransform="uppercase">
-                    Research Projects
+                    Research Categories
                   </Text>
-                  <VStack align="stretch" gap={2}>
-                    {projects.map((project) => (
-                      <Link
-                        asChild
-                        key={project.id}
-                        _hover={{ textDecoration: 'none', bg: 'gray.50' }}
-                        borderRadius="md"
-                        p={2}
-                      >
-                        <NavLink to={`/project/${project.id}`} onClick={onClose}>
-                            <Text fontWeight="medium" fontSize="sm" color="gray.700">
-                                {project.title}
-                            </Text>
-                        </NavLink>
-                      </Link>
-                    ))}
+                  <VStack align="stretch" gap={3}>
+                    {categories.map((category) => {
+                      const categoryProjects = projects.filter((p) => p.categoryId === category.id);
+                      return (
+                        <Box key={category.id}>
+                          <Link
+                            asChild
+                            _hover={{ textDecoration: 'none', bg: 'gray.50' }}
+                            borderRadius="md"
+                            p={2}
+                            display="block"
+                          >
+                            <NavLink to={`/projects/${category.id}`} onClick={onClose}>
+                              <Text fontWeight="bold" fontSize="sm" color="blue.700">
+                                {category.title}
+                              </Text>
+                            </NavLink>
+                          </Link>
+                          <VStack align="stretch" gap={1} pl={3}>
+                            {categoryProjects.length === 0 ? (
+                              <Text fontSize="xs" color="gray.400" fontStyle="italic" px={2} py={1}>
+                                Coming soon
+                              </Text>
+                            ) : (
+                              categoryProjects.map((project) => (
+                                <Link
+                                  asChild
+                                  key={project.id}
+                                  _hover={{ textDecoration: 'none', bg: 'gray.50' }}
+                                  borderRadius="md"
+                                  p={2}
+                                >
+                                  <NavLink to={`/project/${project.id}`} onClick={onClose}>
+                                    <Text fontSize="sm" color="gray.700">
+                                      {project.title}
+                                    </Text>
+                                  </NavLink>
+                                </Link>
+                              ))
+                            )}
+                          </VStack>
+                        </Box>
+                      );
+                    })}
                   </VStack>
+                  <Button asChild variant="outline" colorPalette="blue" size="sm" width="full" mt={3}>
+                    <NavLink to="/projects" onClick={onClose}>View All Projects</NavLink>
+                  </Button>
                 </Box>
                 
                 <Box p={4} mt="auto">

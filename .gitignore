@@ -12,6 +12,21 @@ dist
 dist-ssr
 *.local
 
+# Environment files (keep secrets, e.g. Sanity tokens, out of git)
+.env
+.env.*
+!.env.example
+studio/.env
+studio/dist
+
+# Claude Code
+CLAUDE.md
+
+# Build artifacts / caches
+*.tsbuildinfo
+.sanity/
+studio/.sanity/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

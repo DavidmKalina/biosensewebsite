@@ -13,7 +13,24 @@ export interface Project {
   shortDescription: string;
   fullDescription: string;
   imageUrl: string;
+  bannerUrl?: string;
   contributors: string[];
+  categoryId: string;
+  subcategoryId: string;
+}
+
+export interface Subcategory {
+  id: string;
+  title: string;
+  description?: string;
+}
+
+export interface Category {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl?: string;
+  subcategories: Subcategory[];
 }
 
 export interface NewsItem {

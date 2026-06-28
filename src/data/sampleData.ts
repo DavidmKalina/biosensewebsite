@@ -1,4 +1,4 @@
-import { Contributor, NewsItem, Publication, Partner } from '../types';
+import { Contributor, NewsItem, Publication, Partner, Project, Category } from '../types';
 
 export const contributors: Contributor[] = [
   {
@@ -98,7 +98,50 @@ export const contributors: Contributor[] = [
   },
 ];
 
-export const projects: any[] = [
+// Research categories and their subcategories.
+// Each project is tagged with a categoryId + subcategoryId (see projects below).
+export const categories: Category[] = [
+  {
+    id: 'pain',
+    title: 'Pain',
+    description: 'Objective measurement and drug-free management of human pain.',
+    imageUrl: '/images/projects/ai_pain_detection.png',
+    subcategories: [
+      {
+        id: 'objective-pain-assessment',
+        title: 'Objective Pain Assessment',
+        description: 'Measuring pain objectively from physiological bio-signals and AI.',
+      },
+      {
+        id: 'vr-pain-relief',
+        title: 'VR Pain Relief',
+        description: 'Immersive virtual reality for drug-free acute pain management.',
+      },
+    ],
+  },
+  {
+    id: 'ageing',
+    title: 'Ageing',
+    description: 'Early detection and monitoring of age-related neurological conditions.',
+    imageUrl: '/images/projects/dementia_detection.png',
+    subcategories: [
+      {
+        id: 'dementia-detection',
+        title: 'Dementia Detection',
+        description: 'Neuroimaging and machine learning for early dementia detection.',
+      },
+    ],
+  },
+  {
+    id: 'gait-balance',
+    title: 'Gait & Balance',
+    description: 'Sensing technologies for postural sway, balance and fall-risk assessment.',
+    imageUrl: '/images/projects/smart-agriculture.jpg',
+    subcategories: [],
+  },
+];
+
+export const projects: Project[] = [
   {
     id: 'ai-pain-detection',
     title: 'Multimodal Signal Processing for Objective Human Pain Assessment',
@@ -107,6 +150,8 @@ export const projects: any[] = [
     imageUrl: '/images/projects/ai_pain_detection.png',
     bannerUrl: '/images/projects/ai_pain_detection_banner.png',
     contributors: ['umar-khan'],
+    categoryId: 'pain',
+    subcategoryId: 'objective-pain-assessment',
   },
   {
     id: 'dementia-detection',
@@ -116,6 +161,8 @@ export const projects: any[] = [
     imageUrl: '/images/projects/dementia_detection.png',
     bannerUrl: '/images/projects/dementia_detection_banner.png',
     contributors: ['hamza-shabbir-minhas'],
+    categoryId: 'ageing',
+    subcategoryId: 'dementia-detection',
   },
   {
     id: 'vr-pain-management',
@@ -125,6 +172,8 @@ export const projects: any[] = [
     imageUrl: '/images/projects/vr_pain.png',
     bannerUrl: '/images/projects/vr_pain_banner.png',
     contributors: ['david-kalina'],
+    categoryId: 'pain',
+    subcategoryId: 'vr-pain-relief',
   },
 ];
 
