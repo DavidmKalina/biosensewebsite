@@ -13,7 +13,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import { projects } from '../../data/sampleData';
+import { useProjects } from '../../hooks/useContent';
 import { motion } from 'framer-motion';
 import { LuArrowRight } from 'react-icons/lu';
 import {
@@ -26,6 +26,7 @@ const MotionSimpleGrid = motion(SimpleGrid);
 const MotionCardRoot = motion(Card.Root);
 
 export const FeaturedProjects = () => {
+  const projects = useProjects();
   return (
     <Box py={{ base: 16, md: 24 }} bg="gray.50">
       <Container maxW="7xl">

@@ -1,7 +1,7 @@
 // src/components/home/Partners.tsx
 
 import { Container, Heading, Flex, Text, Link, Box } from '@chakra-ui/react';
-import { partners } from '../../data/sampleData';
+import { usePartners } from '../../hooks/useContent';
 import { motion } from 'framer-motion';
 import {
   sectionAnimation,
@@ -14,6 +14,7 @@ const MotionFlex = motion(Flex);
 const MotionLink = motion(Link);
 
 export const Partners = () => {
+  const partners = usePartners();
   return (
     <MotionBox
       py={16}

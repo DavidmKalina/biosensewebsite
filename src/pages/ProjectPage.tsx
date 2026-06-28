@@ -1,10 +1,13 @@
 import { useParams, Link } from 'react-router-dom';
-import { Container, Heading, Box, Image, Text, SimpleGrid, Card, Badge, VStack, HStack, Avatar } from '@chakra-ui/react';
-import { projects, contributors } from '../data/sampleData';
+import { Container, Heading, Box, Image, SimpleGrid, Card, Badge, VStack, HStack, Avatar, Text } from '@chakra-ui/react';
+import { useProjects, useContributors } from '../hooks/useContent';
+import { RichText } from '../components/RichText';
 import { LuArrowRight, LuUser } from 'react-icons/lu';
 
 const ProjectPage = () => {
   const { id } = useParams<{ id: string }>();
+  const projects = useProjects();
+  const contributors = useContributors();
   const project = projects.find(p => p.id === id);
 
   if (!project) {
@@ -58,9 +61,9 @@ const ProjectPage = () => {
                 {project.title}
               </Heading>
               <Badge size="lg" colorPalette="blue" variant="solid">Research Project</Badge>
-              <Text fontSize="xl" lineHeight="relaxed" color="fg.muted" whiteSpace="pre-line">
-                {project.fullDescription}
-              </Text>
+              <Box w="full">
+                <RichText value={project.fullDescription} />
+              </Box>
             </VStack>
           </Box>
           

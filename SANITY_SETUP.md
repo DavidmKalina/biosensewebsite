@@ -104,3 +104,56 @@ redeploy.
 To add a project to a category, the professor just picks a **Subcategory** from
 a dropdown on the project (each subcategory belongs to a category), so there are
 no IDs to type.
+
+---
+
+## 7. Preview drafts before publishing (you, once)
+
+By default the website only ever shows published content. There's also a
+preview mode that shows your unpublished edits on the actual site, so you can
+check how something looks before clicking Publish.
+
+### Set it up
+
+1. At sanity.io/manage -> your project -> **API -> Tokens**, create a new
+   token named something like `website-preview` with the **Viewer** role
+   (read-only). Copy it.
+2. Add it to the root `.env`:
+
+   ```
+   VITE_SANITY_PREVIEW_TOKEN=the-token-you-just-copied
+   ```
+
+3. Also add it in **Cloudflare Pages -> your project -> Settings ->
+   Environment variables**, then redeploy, so preview works on the live site
+   too.
+4. Enable **Allow credentials** on your CORS origins. Because preview mode
+   sends the token with each request, `@sanity/client` makes the request with
+   credentials, and Sanity will block it unless the origin allows them. Go to
+   sanity.io/manage -> your project -> **API -> CORS origins**, and for each
+   origin from step 5 (`http://localhost:5173` and your live domain) tick
+   **Allow credentials**. Without this, the page shows a CORS error in the
+   browser console and no draft content loads while in preview mode. The
+   normal published site is unaffected either way.
+
+**Security note:** this is a static site with no server, so this token gets
+bundled into the site's public JS, where anyone who opens browser dev tools
+could find it. That's why it must be a **Viewer** token, not Editor or Admin:
+it can only read content (including drafts), never change anything. For an
+academic lab site this is a reasonable tradeoff for the convenience, but
+don't reuse this token anywhere else, and rotate it (create a new one, delete
+the old one) if it ever leaks somewhere more sensitive.
+
+### Using it
+
+- Visit the site with `?preview=1` added to the URL, e.g.
+  `https://biosislab.au/?preview=1` (or `http://localhost:5173/?preview=1`
+  while running `npm run dev`).
+- A yellow banner appears at the top confirming preview mode is on. It stays
+  on as you click around the site (it's remembered for the browser tab) and
+  shows your latest saved-but-unpublished edits in Sanity.
+- Click **Exit preview** in the banner (or visit any URL with `?preview=0`)
+  to go back to seeing only published content.
+
+If `VITE_SANITY_PREVIEW_TOKEN` isn't set, the `?preview=1` link does nothing
+and the site just shows published content as normal.

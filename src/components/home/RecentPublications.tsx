@@ -13,7 +13,7 @@ import {
   Card,
 } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
-import { publications } from '../../data/sampleData';
+import { usePublications } from '../../hooks/useContent';
 import { Publication } from '../../types'; // <-- FIX: Importing the type from the correct module
 import { motion } from 'framer-motion';
 import { LuExternalLink, LuBookOpen } from 'react-icons/lu';
@@ -84,12 +84,13 @@ const PublicationItem = ({ pub }: { pub: Publication }) => {
 };
 
 export const RecentPublications = () => {
+  const publications = usePublications();
   // Use useMemo to prevent re-sorting on every render
   const recentPublications = useMemo(() => {
-    return publications
+    return [...publications]
       .sort((a, b) => b.year - a.year)
       .slice(0, 3);
-  }, []); // Empty dependency array means this only runs once
+  }, [publications]);
 
   return (
     <Box py={{ base: 16, md: 24 }} bg="white">

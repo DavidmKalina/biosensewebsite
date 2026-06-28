@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { contributors } from '../data/sampleData';
+import { useContributors } from '../hooks/useContent';
 import { LuArrowRight, LuUser } from 'react-icons/lu';
 
 const MotionBox = motion(Box);
@@ -38,6 +38,7 @@ const itemVariants = {
 };
 
 const Team: React.FC = () => {
+  const contributors = useContributors();
   const teamMembers = contributors.filter(c => c.id !== 'test' && c.role !== 'External Collaborator');
 
   return (

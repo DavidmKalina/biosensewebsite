@@ -20,6 +20,15 @@ export default defineConfig({
         S.list()
           .title('Content')
           .items([
+            S.listItem()
+              .title('Homepage')
+              .id('homepage')
+              .child(S.document().schemaType('homepage').documentId('homepage')),
+            S.listItem()
+              .title('About page')
+              .id('aboutPage')
+              .child(S.document().schemaType('aboutPage').documentId('aboutPage')),
+            S.divider(),
             S.listItem().title('Projects').child(S.documentTypeList('project').title('Projects')),
             S.listItem().title('Categories').child(S.documentTypeList('category').title('Categories')),
             S.listItem()

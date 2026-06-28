@@ -12,7 +12,7 @@ import {
   Input,
   Flex,
 } from '@chakra-ui/react';
-import { publications } from '../data/sampleData';
+import { usePublications } from '../hooks/useContent';
 import { LuExternalLink, LuBookOpen, LuSearch } from 'react-icons/lu';
 import { motion, AnimatePresence } from 'framer-motion'; // Added AnimatePresence
 
@@ -40,6 +40,7 @@ const itemVariants = {
 
 const Publications = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const publications = usePublications();
 
   const sortedPublications = [...publications].sort((a, b) => b.year - a.year);
 

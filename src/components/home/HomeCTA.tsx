@@ -1,10 +1,17 @@
 import { Box, Container, Heading, Text, Button } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useHomepage } from '../../hooks/useContent';
 
 const MotionBox = motion(Box);
 
 export const HomeCTA = () => {
+  const cta = useHomepage()?.cta;
+  const heading = cta?.heading || 'Ready to Collaborate?';
+  const text =
+    cta?.text || 'Join us in our mission to advance biosensing technology and improve global health outcomes.';
+  const buttonLabel = cta?.buttonLabel || 'Contact Us';
+  const buttonLink = cta?.buttonLink || '/contact';
   return (
     <Box bg="blue.900" py={24} color="white" position="relative" overflow="hidden">
       {/* Decorative background element */}
@@ -18,12 +25,12 @@ export const HomeCTA = () => {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <Heading size="3xl" mb={6} letterSpacing="tight">Ready to Collaborate?</Heading>
+          <Heading size="3xl" mb={6} letterSpacing="tight">{heading}</Heading>
           <Text fontSize="xl" mb={10} opacity={0.9} maxW="2xl" mx="auto">
-            Join us in our mission to advance biosensing technology and improve global health outcomes.
+            {text}
           </Text>
           <Button asChild size="xl" bg="white" color="blue.900" _hover={{ bg: "gray.100", transform: "scale(1.05)" }} rounded="full" px={10}>
-            <RouterLink to="/contact">Contact Us</RouterLink>
+            <RouterLink to={buttonLink}>{buttonLabel}</RouterLink>
           </Button>
         </MotionBox>
       </Container>

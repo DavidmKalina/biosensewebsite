@@ -11,7 +11,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import { contributors } from '../../data/sampleData';
+import { useContributors } from '../../hooks/useContent';
 import { motion } from 'framer-motion';
 import { LuUsers } from 'react-icons/lu';
 import {
@@ -23,6 +23,7 @@ const MotionBox = motion(Box);
 const MotionSimpleGrid = motion(SimpleGrid);
 
 export const TeamSnippet = () => {
+  const contributors = useContributors();
   const teamSnippet = contributors.filter((c) => c.id !== 'test' && c.role !== 'External Collaborator').slice(0, 4);
 
   return (

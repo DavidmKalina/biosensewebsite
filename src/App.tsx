@@ -5,8 +5,10 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import Navbar from './components/Navbar';
+import PreviewBanner from './components/PreviewBanner';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { initPreviewMode } from './lib/sanity';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
 import ProjectPage from './pages/ProjectPage';
@@ -18,6 +20,9 @@ import Publications from './pages/Publications';
 import { theme } from './theme';
 import Footer from './components/Footer'; // Import the new Footer
 
+// Reads the ?preview= param once on load, before anything fetches data.
+initPreviewMode();
+
 const queryClient = new QueryClient()
 
 function App() {
@@ -27,6 +32,7 @@ function App() {
         <Box display="flex" flexDirection="column" minH="100vh">
           <Router>
             <ScrollToTop />
+            <PreviewBanner />
             <Navbar />
 
             {/* Main content area. flex="1" pushes footer to bottom. */}

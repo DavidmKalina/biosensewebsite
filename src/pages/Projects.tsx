@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { LuArrowRight, LuArrowLeft, LuFolderOpen } from 'react-icons/lu';
-import { categories, projects } from '../data/sampleData';
+import { useCategories, useProjects } from '../hooks/useContent';
 import { containerVariants, itemVariants } from '../components/home/animationVariants';
 
 const MotionBox = motion(Box);
@@ -26,6 +26,8 @@ const MotionCardRoot = motion(Card.Root);
  * Top-level view: a card per research category (drill-down entry point).
  */
 const CategoryGrid = () => {
+  const categories = useCategories();
+  const projects = useProjects();
   return (
     <MotionSimpleGrid
       columns={{ base: 1, md: 2, lg: 3 }}
@@ -119,6 +121,8 @@ const CategoryGrid = () => {
  */
 const CategoryDetail = ({ categoryId }: { categoryId: string }) => {
   const navigate = useNavigate();
+  const categories = useCategories();
+  const projects = useProjects();
   const category = categories.find((c) => c.id === categoryId);
 
   if (!category) {
@@ -245,6 +249,7 @@ const CategoryDetail = ({ categoryId }: { categoryId: string }) => {
 
 const Projects = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
+  const categories = useCategories();
   const activeCategory = categoryId
     ? categories.find((c) => c.id === categoryId)
     : undefined;

@@ -11,6 +11,7 @@ import {
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { buttonHoverTap } from './animationVariants';
+import { useHomepage } from '../../hooks/useContent';
 
 const MotionHeading = motion(Heading);
 const MotionText = motion(Text);
@@ -18,6 +19,14 @@ const MotionBox = motion(Box);
 const MotionButton = motion(Button);
 
 export const HeroSection = () => {
+  const hero = useHomepage()?.hero;
+  const heading = hero?.heading || 'BioSIS Lab';
+  const subheading =
+    hero?.subheading || 'Pioneering Biosensing and Intelligence Systems for a Healthier Tomorrow';
+  const ctaLabel = hero?.ctaLabel || 'Discover Our Mission';
+  const ctaLink = hero?.ctaLink || '/about';
+  const bgUrl = hero?.backgroundImageUrl || '/images/hero-bg.jpg';
+
   return (
     <Box
       as="section"
@@ -33,7 +42,7 @@ export const HeroSection = () => {
         left="0"
         w="100%"
         h="100%"
-        backgroundImage="url('/images/hero-bg.jpg')"
+        backgroundImage={`url('${bgUrl}')`}
         backgroundSize="cover"
         backgroundPosition="center"
         _after={{
@@ -73,7 +82,7 @@ export const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            BioSIS Lab
+            {heading}
           </MotionHeading>
 
           <MotionText
@@ -85,7 +94,7 @@ export const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Pioneering Biosensing and Intelligence Systems for a Healthier Tomorrow
+            {subheading}
           </MotionText>
 
           <MotionBox
@@ -109,7 +118,7 @@ export const HeroSection = () => {
               shadow="lg"
               {...buttonHoverTap}
             >
-              <NavLink to="/about">Discover Our Mission</NavLink>
+              <NavLink to={ctaLink}>{ctaLabel}</NavLink>
             </MotionButton>
           </MotionBox>
         </VStack>

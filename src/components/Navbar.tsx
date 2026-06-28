@@ -17,7 +17,7 @@ import {
 import { NavLink } from 'react-router-dom';
 import { HiOutlineMenu, HiChevronDown, HiX } from 'react-icons/hi';
 import React, { useState, useEffect } from 'react';
-import { projects, categories } from '../data/sampleData';
+import { useProjects, useCategories } from '../hooks/useContent';
 
 // Updated navLinks, "Home" is covered by the brand, "Projects" is a separate menu
 const navLinks = [
@@ -69,6 +69,8 @@ const NavLinkItem = ({
  * Desktop dropdown "Mega Menu" for Projects
  */
 const ProjectMegaMenu = () => {
+  const projects = useProjects();
+  const categories = useCategories();
   return (
     <Popover.Root positioning={{ placement: "bottom-start" }}>
       <Popover.Trigger asChild>
@@ -188,6 +190,8 @@ const Navbar = () => {
   const { open, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef<HTMLButtonElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const projects = useProjects();
+  const categories = useCategories();
 
   useEffect(() => {
     const handleScroll = () => {

@@ -84,6 +84,18 @@ async function uploadImage(relPath?: string) {
 }
 
 async function run() {
+  // Safety: this script OVERWRITES every document with the original seed data.
+  // Refuse to run unless explicitly forced, so it can't wipe later edits.
+  if (!process.argv.includes('--force')) {
+    console.error(
+      '\nRefusing to run: "migrate" OVERWRITES all content with the original seed data and\n' +
+        'would wipe any edits made in the Studio.\n\n' +
+        '  - To add ONLY the new Homepage/About pages safely:  npm run seed-pages\n' +
+        '  - To force a full re-seed anyway (destructive):      npm run migrate -- --force\n'
+    )
+    process.exit(1)
+  }
+
   console.log(`\nMigrating content into Sanity project "${projectId}" (dataset: ${dataset})\n`)
 
   // 1. Categories
@@ -209,6 +221,89 @@ async function run() {
     })
   }
   console.log(`   ${partners.length} partners`)
+
+  // 8. Homepage (single document) - seeded with the current hard-coded content
+  console.log('Homepage...')
+  const heroBg = await uploadImage('/images/hero-bg.jpg')
+  await client.createOrReplace({
+    _id: 'homepage',
+    _type: 'homepage',
+    hero: {
+      heading: 'BioSIS Lab',
+      subheading: 'Pioneering Biosensing and Intelligence Systems for a Healthier Tomorrow',
+      ctaLabel: 'Discover Our Mission',
+      ctaLink: '/about',
+      ...(heroBg ? { backgroundImage: heroBg } : {}),
+    },
+    researchAreasHeading: 'Our Research Areas',
+    researchAreasIntro: 'Multidisciplinary approaches to solving complex problems.',
+    researchAreas: [
+      {
+        _key: nextKey(),
+        icon: 'activity',
+        title: 'Biosensing',
+        description: 'Advanced sensors for real-time physiological monitoring.',
+      },
+      {
+        _key: nextKey(),
+        icon: 'brain',
+        title: 'Artificial Intelligence',
+        description: 'Machine learning algorithms for predictive health analytics.',
+      },
+      {
+        _key: nextKey(),
+        icon: 'stethoscope',
+        title: 'Healthcare Systems',
+        description: 'Integrated systems for clinical and remote patient care.',
+      },
+    ],
+    cta: {
+      heading: 'Ready to Collaborate?',
+      text: 'Join us in our mission to advance biosensing technology and improve global health outcomes.',
+      buttonLabel: 'Contact Us',
+      buttonLink: '/contact',
+    },
+  })
+  console.log('   homepage seeded')
+
+  // 9. About page (single document)
+  console.log('About page...')
+  const groupPhoto = await uploadImage('/images/group-photo.jpg')
+  await client.createOrReplace({
+    _id: 'aboutPage',
+    _type: 'aboutPage',
+    heading: 'About BioSIS Lab',
+    intro:
+      'A collaborative research initiative at the University of Canberra, driving innovation in biosensing and intelligent systems.',
+    ...(groupPhoto ? { groupPhoto } : {}),
+    whoWeAreHeading: 'Who We Are',
+    whoWeAre: toPortableText(
+      'We are a dynamic group of researchers and academics who established this group to foster deep collaboration on cutting-edge projects.\n\nRecognising that the most significant breakthroughs happen at the intersection of disciplines, we created BioSIS as a platform to share knowledge, resources, and expertise.'
+    ),
+    features: [
+      {
+        _key: nextKey(),
+        icon: 'users',
+        title: 'Multidisciplinary Expertise',
+        description: 'Bringing together diverse expertise to solve complex problems.',
+      },
+      {
+        _key: nextKey(),
+        icon: 'mappin',
+        title: 'University of Canberra',
+        description: "Proudly based in Australia's capital, leveraging world-class academic facilities.",
+      },
+    ],
+    missionHeading: 'Our Mission',
+    missionStatement:
+      'To advance the frontiers of biosensing technology and intelligence systems through research, collaboration, and a commitment to impactful real-world applications.',
+    missionPoints: [
+      'Developing novel biosensors for healthcare monitoring',
+      'Applying AI/ML to interpret complex biological data',
+      'Mentoring the next generation of researchers',
+    ],
+  })
+  console.log('   about page seeded')
 
   console.log('\nDone. Open your Studio to review the content.\n')
 }

@@ -16,7 +16,8 @@ import {
   Avatar,
 } from '@chakra-ui/react';
 import { useEffect, useMemo } from 'react';
-import { contributors, projects } from '../data/sampleData';
+import { useContributors, useProjects } from '../hooks/useContent';
+import { RichText } from '../components/RichText';
 import ContributorResearchPapersTab from '../components/contributor/ContributorResearchPapersTab';
 import { motion } from 'framer-motion';
 import { LuUser, LuFileText, LuGraduationCap, LuArrowLeft, LuArrowRight } from 'react-icons/lu';
@@ -27,6 +28,8 @@ const MotionContainer = motion(Container);
 const ContributorPage = () => {
   const { id, tab } = useParams<{ id: string; tab?: string }>();
   const navigate = useNavigate();
+  const contributors = useContributors();
+  const projects = useProjects();
   const contributor = contributors.find(c => c.id === id);
 
   useEffect(() => {
@@ -133,9 +136,7 @@ const ContributorPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <Text fontSize="lg" lineHeight="1.8" color="fg.muted" whiteSpace="pre-line">
-                  {contributor.bio}
-                </Text>
+                <RichText value={contributor.bio} />
               </MotionBox>
             </Tabs.Content>
 
@@ -162,9 +163,7 @@ const ContributorPage = () => {
             borderColor="border.subtle"
           >
             <Heading size="xl" mb={6} letterSpacing="tight">Biography</Heading>
-            <Text fontSize="lg" lineHeight="1.8" color="fg.muted" whiteSpace="pre-line">
-              {contributor.bio}
-            </Text>
+            <RichText value={contributor.bio} />
           </MotionBox>
         )}
 

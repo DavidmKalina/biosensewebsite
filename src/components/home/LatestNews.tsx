@@ -12,7 +12,7 @@ import {
   Tag,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
-import { latestNews } from '../../data/sampleData';
+import { useNews } from '../../hooks/useContent';
 import { NewsItem } from '../../types'; // <-- Corrected import path
 import { motion } from 'framer-motion';
 import {
@@ -93,12 +93,13 @@ const NewsCard = ({ item }: { item: NewsItem }) => {
 };
 
 export const LatestNews = () => {
+  const latestNews = useNews();
   // Use useMemo to prevent re-sorting on every render
   const sortedNews = useMemo(() => {
-    return latestNews
+    return [...latestNews]
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       .slice(0, 3);
-  }, []); // Empty dependency array means this only runs once
+  }, [latestNews]);
 
   return (
     <MotionBox
