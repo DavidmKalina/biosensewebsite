@@ -7,6 +7,19 @@ import { Text, Heading, Link, List } from '@chakra-ui/react'
  * sampleData fallback). Plain strings are split into paragraphs on blank lines.
  */
 
+/**
+ * Only allow safe link schemes. Blocks javascript:, data: and similar URIs
+ * so a malicious or compromised CMS link can't execute script on click.
+ * Returns undefined for anything that isn't an http(s), mailto, tel or
+ * relative link, which renders the text without a clickable href.
+ */
+function safeHref(href?: string): string | undefined {
+  if (!href) return undefined
+  const trimmed = href.trim()
+  if (/^(https?:|mailto:|tel:|\/|#|\.)/i.test(trimmed)) return trimmed
+  return undefined
+}
+
 const components: PortableTextComponents = {
   block: {
     normal: ({ children }) => (
@@ -67,7 +80,7 @@ const components: PortableTextComponents = {
     ),
     link: ({ children, value }) => (
       <Link
-        href={(value as { href?: string } | undefined)?.href}
+        href={safeHref((value as { href?: string } | undefined)?.href)}
         target="_blank"
         rel="noopener noreferrer"
         color="blue.600"
