@@ -119,7 +119,7 @@ const Footer = () => {
                 </IconButton>
               </Link>
               <Link
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/biosis-lab/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
