@@ -27,7 +27,7 @@ const ProjectPage = () => {
   return (
     <Box bg="bg.subtle" minH="100vh">
       <Seo
-        title={project.title}
+        title={project.seoTitle || project.title}
         path={projectPath}
         description={project.shortDescription}
         image={project.bannerUrl || project.imageUrl}

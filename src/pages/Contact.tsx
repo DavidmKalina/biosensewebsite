@@ -25,7 +25,7 @@ const Contact = () => {
         transition={{ duration: 0.6 }}
       >
         <VStack gap={8} textAlign="center" bg="bg.panel" p={{ base: 6, md: 10 }} borderRadius="2xl" boxShadow="sm" borderWidth="1px" borderColor="border.subtle">
-          <Heading size={{ base: '2xl', md: '3xl' }} letterSpacing="tight">Contact Us</Heading>
+          <Heading as="h1" size={{ base: '2xl', md: '3xl' }} letterSpacing="tight">Contact Us</Heading>
           <Text fontSize={{ base: 'lg', md: 'xl' }} color="fg.muted">
             Interested in our research or want to get involved? Reach out to us directly.
           </Text>

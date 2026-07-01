@@ -130,7 +130,7 @@ const ContributorPage = () => {
               flex="1"
               textAlign={{ base: 'center', md: 'left' }}
             >
-              <Heading size="3xl" fontWeight="bold" color="fg">
+              <Heading as="h1" size="3xl" fontWeight="bold" color="fg">
                 {contributor.name}
               </Heading>
               <HStack color="fg.muted" fontSize="lg" fontWeight="medium">

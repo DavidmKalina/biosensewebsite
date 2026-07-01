@@ -21,6 +21,7 @@ studio/dist
 
 # Claude Code / AI context dumps (do not commit)
 CLAUDE.md
+SEO_AUDIT.md
 filetree.txt
 llms-full.txt
 

@@ -20,6 +20,14 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'seoTitle',
+      title: 'SEO title',
+      type: 'string',
+      description:
+        'Optional shorter title for search results and browser tabs. Aim for under 50 characters. Falls back to Title if empty.',
+      validation: (Rule) => Rule.max(60),
+    }),
+    defineField({
       name: 'subcategory',
       title: 'Subcategory',
       type: 'reference',

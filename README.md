@@ -1,54 +1,60 @@
-# React + TypeScript + Vite
+# BioSIS Lab website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Website for the Biosensing and Intelligent Systems (BioSIS) Lab at the
+University of Canberra. Production site: https://biosislab.au
 
-Currently, two official plugins are available:
+Built as a React single-page app that is pre-rendered to static HTML at build
+time, so every route ships real content and per-page metadata for search
+engines and social previews while remaining a fast client-side app for visitors.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech stack
 
-## Expanding the ESLint configuration
+- React 19 + TypeScript, built with Vite
+- `vite-react-ssg` for build-time static pre-rendering
+- Chakra UI for components and theming
+- Sanity as the headless CMS (see `SANITY_SETUP.md`)
+- Deployed on Cloudflare Pages
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Getting started
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+Requires Node 22 (see `.node-version`).
+
+```bash
+npm install      # install dependencies
+npm run dev      # start the dev server
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm run build      # pre-render every route to static HTML in dist/
+npm run preview    # serve the built dist/ locally
+npm run typecheck  # tsc type checking
+npm run lint       # eslint
 ```
+
+## Project structure
+
+```
+src/
+  components/   Reusable UI, including Seo.tsx (per-page meta and JSON-LD)
+  pages/        Route-level pages
+  hooks/        Data hooks (Sanity with sample-data fallback)
+  lib/          Sanity client, GROQ queries, SEO helpers
+  data/         Bundled sample content used as a fallback
+  types/        Shared TypeScript types
+studio/         Sanity Studio schema and config
+public/         Static assets, icons, robots.txt, sitemap.xml
+```
+
+## Content
+
+Content is edited in Sanity Studio (`studio/`). When Sanity is unavailable the
+site falls back to the bundled sample content in `src/data`. Set the
+`VITE_SANITY_*` environment variables (see `.env.example`) to connect a project.
+
+## Deployment
+
+Cloudflare Pages, using build command `npm run build` and output directory
+`dist`. `sitemap.xml` is regenerated from the pre-rendered routes on each build.
+See `SEO.md` for the SEO setup and verification steps.

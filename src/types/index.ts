@@ -10,6 +10,7 @@ export interface Contributor {
 export interface Project {
   id: string;
   title: string;
+  seoTitle?: string;
   shortDescription: string;
   fullDescription: string;
   imageUrl: string;

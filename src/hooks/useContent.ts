@@ -40,6 +40,7 @@ const queryOptions = { retry: 1, staleTime: 5 * 60 * 1000 }
 export interface ProjectView {
   id: string
   title: string
+  seoTitle?: string
   shortDescription: string
   fullDescription?: string | PortableTextBlock[]
   imageUrl: string
@@ -113,6 +114,7 @@ export function useProjects(): ProjectView[] {
   return data.map((p) => ({
     id: p.id,
     title: p.title,
+    seoTitle: p.seoTitle,
     shortDescription: p.shortDescription,
     fullDescription: p.fullDescription,
     imageUrl: toUrl(p.image),

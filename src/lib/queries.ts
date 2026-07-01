@@ -9,6 +9,7 @@ import { getActiveClient } from './sanity'
 export interface RawProject {
   id: string
   title: string
+  seoTitle?: string
   shortDescription: string
   fullDescription?: PortableTextBlock[]
   image?: SanityImageSource
@@ -100,6 +101,7 @@ export interface RawAboutPage {
 const projectsQuery = `*[_type == "project"] | order(order asc, title asc){
   "id": slug.current,
   title,
+  seoTitle,
   shortDescription,
   fullDescription,
   image,
